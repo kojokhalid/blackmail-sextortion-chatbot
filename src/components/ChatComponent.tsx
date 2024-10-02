@@ -37,7 +37,7 @@ function ChatComponent() {
       messages[messages.length - 1].sender === "user"
     ) {
       // Simulate bot response after a delay
-      const responseText = "This is a response."; // The bot's message to simulate typing
+      const responseText = "response."; // The bot's message to simulate typing
       setTimeout(() => {
         typeBotMessage(responseText);
         setMessages((prevMessages) => [
