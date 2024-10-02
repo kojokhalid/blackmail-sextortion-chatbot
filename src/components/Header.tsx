@@ -1,4 +1,3 @@
-
 const Header = () => {
   return (
     <header>
@@ -9,13 +8,17 @@ const Header = () => {
           {/* Logo positioned on the far right */}
           <a href="#" className="flex ml-auto">
             <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-              Blackmail
+              <img
+                src="../../public/myimg.jpeg"
+                alt="Avatar"
+                className="w-10 h-10 rounded-full object-cover"
+              />
             </span>
           </a>
         </div>
       </nav>
     </header>
   );
-}
+};
 
-export default Header
+export default Header;

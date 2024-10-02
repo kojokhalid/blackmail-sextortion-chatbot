@@ -53,6 +53,7 @@ function SideBar() {
     "sextortion something",
     "something blackmail questions",
     "some things",
+    "Someone"
   ];
 
   const [selectedChat, setSelectedChat] = useState(-1);
