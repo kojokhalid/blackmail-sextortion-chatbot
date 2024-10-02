@@ -50,9 +50,9 @@ function SideBar() {
   };
 
   const chats = [
-    "New Word has arrived",
-    "Help me to easily understand",
-    "Can you write this",
+    "sextortion something",
+    "something blackmail questions",
+    "some things",
   ];
 
   const [selectedChat, setSelectedChat] = useState(-1);
