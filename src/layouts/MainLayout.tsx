@@ -1,12 +1,18 @@
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 import { Outlet } from "react-router-dom";
-import SideBar from "../components/SideBar";
-const MainLayout = () => {
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-      <>
-           <SideBar/>
-      <Outlet/>
-    </>
+    <SidebarProvider defaultOpen={true}>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+      </main>
+      {children}
+    </SidebarProvider>
   );
-};
-
-export default MainLayout;
+}

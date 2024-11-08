@@ -9,7 +9,10 @@ import MainLayout from "./layouts/MainLayout";
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<MainLayout></MainLayout>}>
+      <Route path="/" element={<MainLayout>
+        <Chat></Chat>
+
+      </MainLayout>}>
         <Route index element={<Chat></Chat>} />
       </Route>
     )
