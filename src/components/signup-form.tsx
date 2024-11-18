@@ -57,7 +57,7 @@ export function SignUpForm() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [csrfToken, setCsrfToken] = useState("");
-  const [message, ] = useState("");
+  const [message] = useState("");
   const [isLoading, setIsLoading] = useState(false); // State for loading
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -82,12 +82,13 @@ export function SignUpForm() {
     setIsLoading(true); // Set loading to true when submission starts
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/sign-up/",
-        values, {
+        "https://djangoredeploy.onrender.com/api/sign-up/",
+        values,
+        {
           headers: {
             "X-CSRFToken": csrfToken, // Include CSRF token in request headers
           },
-      }
+        }
       );
 
       toast({
