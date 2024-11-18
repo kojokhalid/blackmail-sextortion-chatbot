@@ -50,7 +50,7 @@ const loginUser = async (values: { username: string; password: string }) => {
         refresh: data.refresh,
       });
     } else {
-      const errorData = await response.json(); // Extract error detail
+      const errorData = await response.json(); // Extract error 
       throw new Error(errorData.detail || "Login failed");
     }
   } catch (error) {
