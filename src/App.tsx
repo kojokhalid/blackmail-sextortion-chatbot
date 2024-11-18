@@ -15,7 +15,6 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Toaster />
-
         <Routes>
           <Route
             path="/chat"
@@ -27,7 +26,7 @@ function App() {
               </MainLayout>
             }
           ></Route>
-          <Route index path="/" element={<Login></Login>}></Route>
+          <Route path="/" element={<Login></Login>}></Route>
           <Route
             index
             path="/resourcehub"
