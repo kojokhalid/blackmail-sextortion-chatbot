@@ -15,7 +15,7 @@ let notifications = [
   {
     name: "Threat: Release of Private Photos",
     description:
-      "If you don’t send $500, I’ll share your photos with everyone.",
+      "If you don’t send HS500, I’ll share your photos with everyone.",
     time: "5m ago",
     icon: "📸",
     color: "#E74C3C",
@@ -46,7 +46,7 @@ let notifications = [
   {
     name: "Threat: Social Media Leak",
     description:
-      "I have your chat history. Send $1,000, or I’ll post everything.",
+      "I have your chat history. Send GHS1,000, or I’ll post everything.",
     time: "30m ago",
     icon: "📱",
     color: "#C0392B",

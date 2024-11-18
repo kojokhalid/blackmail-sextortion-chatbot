@@ -19,7 +19,8 @@ import {
   CardDescription,
   CardHeader,
 } from "@/components/ui/card";
-
+import MoonLoader from "react-spinners/MoonLoader";
+import { useState } from "react";
 import { useAuthContext } from "@/hooks/useAuthContext";
 
 const formSchema = z.object({
@@ -31,6 +32,7 @@ export function LoginForm() {
   const { loginUser } = useAuthContext();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false); // State for loading
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,6 +43,8 @@ export function LoginForm() {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true); // Set loading to true when submission starts
+
     try {
       await loginUser(values);
       navigate("/chat");
@@ -55,6 +59,8 @@ export function LoginForm() {
         title: "Login Failed",
         description: errorDescription,
       });
+    } finally {
+      setIsLoading(false); // Set loading to false when submission ends
     }
   };
 
@@ -103,8 +109,8 @@ export function LoginForm() {
               )}
             />
 
-            <Button type="submit" className="w-full">
-              Login
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? <MoonLoader size={20} color="#fff" /> : "Log In"}
             </Button>
 
             <FormDescription>
