@@ -16,7 +16,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ sender, text, typing }) => {
       }`}
     >
       <motion.div
-        className={`max-w-xs md:max-w-md p-3 rounded-xl text-sm ${
+        className={`max-w-xs md:max-w-md p-3 rounded-xl text-sm antialized${
           sender === "user"
             ? "bg-neutral-200 text-neutral-900"
             : "text-neutral-900"

@@ -1,7 +1,8 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
-
+import { ChevronRight,MessageCircleMore, type LucideIcon } from "lucide-react"
+import { useState } from "react"
+import {NavLink} from "react-router-dom"
 import {
   Collapsible,
   CollapsibleContent,
@@ -11,7 +12,6 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -25,54 +25,69 @@ export function NavMain({
   items: {
     title: string
     url: string
-    icon: LucideIcon
+    icon?: LucideIcon
     isActive?: boolean
     items?: {
       title: string
       url: string
     }[]
   }[]
-}) {
+  }
+
+) {
+ const [isSelected,setisSelected] = useState("")
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      {/* <SidebarGroupLabel>Platform</SidebarGroupLabel> */}
+      <SidebarMenu>
+        <SidebarMenuItem>
+          <SidebarMenuButton asChild>
+            <a href="#">
+              <MessageCircleMore/>
+              <span>Chat</span>
+            </a>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      </SidebarMenu>
       <SidebarMenu>
         {items.map((item) => (
-          <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
+          <Collapsible
+            key={item.title}
+            asChild
+            defaultOpen={item.isActive}
+            className="group/collapsible"
+          >
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip={item.title}>
-                <a href={item.url}>
-                  <item.icon />
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton tooltip={item.title}>
+                  {item.icon && <item.icon />}
                   <span>{item.title}</span>
-                </a>
-              </SidebarMenuButton>
-              {item.items?.length ? (
-                <>
-                  <CollapsibleTrigger asChild>
-                    <SidebarMenuAction className="data-[state=open]:rotate-90">
-                      <ChevronRight />
-                      <span className="sr-only">Toggle</span>
-                    </SidebarMenuAction>
-                  </CollapsibleTrigger>
-                  <CollapsibleContent>
-                    <SidebarMenuSub>
-                      {item.items?.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
-                            <a href={subItem.url}>
-                              <span>{subItem.title}</span>
-                            </a>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  </CollapsibleContent>
-                </>
-              ) : null}
+                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {item.items?.map((subItem, i) => (
+                    <SidebarMenuSubItem key={subItem.title}>
+                      <SidebarMenuSubButton asChild>
+                        <NavLink
+                          onClick={() => setisSelected(subItem.url)}
+                          to={subItem.url}
+                          className={
+                            subItem.url == isSelected ? "bg-red-800" : ""
+                          }
+                        >
+                          <span>{subItem.title}</span>
+                        </NavLink>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
             </SidebarMenuItem>
           </Collapsible>
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }

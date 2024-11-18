@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-    darkMode: ["class"],
-    content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: ["selector", '[data-mode="dark"]', "class"],
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
   	extend: {
   		borderRadius: {
@@ -12,6 +12,11 @@ export default {
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
+  			mred: '#ed1c24',
+  			mwhite: '#fdfffc',
+  			mblue: '#235789',
+  			myellow: '#f1d302',
+  			mblack: '#020100',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'
@@ -59,6 +64,66 @@ export default {
   				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
   				border: 'hsl(var(--sidebar-border))',
   				ring: 'hsl(var(--sidebar-ring))'
+  			},
+  			'color-1': 'hsl(var(--color-1))',
+  			'color-2': 'hsl(var(--color-2))',
+  			'color-3': 'hsl(var(--color-3))',
+  			'color-4': 'hsl(var(--color-4))',
+  			'color-5': 'hsl(var(--color-5))'
+  		},
+  		animation: {
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+  			rainbow: 'rainbow var(--speed, 2s) infinite linear',
+  			marquee: 'marquee var(--duration) infinite linear',
+  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
+  		},
+  		keyframes: {
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
+  				}
+  			},
+  			rainbow: {
+  				'0%': {
+  					'background-position': '0%'
+  				},
+  				'100%': {
+  					'background-position': '200%'
+  				}
+  			},
+  			marquee: {
+  				from: {
+  					transform: 'translateX(0)'
+  				},
+  				to: {
+  					transform: 'translateX(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'marquee-vertical': {
+  				from: {
+  					transform: 'translateY(0)'
+  				},
+  				to: {
+  					transform: 'translateY(calc(-100% - var(--gap)))'
+  				}
+  			},
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
   			}
   		}
   	}

@@ -1,99 +1,62 @@
-import * as React from "react";
+import React, { useState } from "react";
 import {
-  BookOpen,
-  Bot,
   Command,
-  Frame,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  SquareTerminal,
-  Clock,
-  MessageCirclePlus,
-  LifeBuoyIcon,
-  BookOpenCheck,
+  ChevronRight,
+  File,
+  History,
+  Lightbulb,
+  MessageCircleMore,
 } from "lucide-react";
-
-import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
-import { NavSecondary } from "@/components/nav-secondary";
-import { NavUser } from "@/components/nav-user";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
+  SidebarMenuSubButton,
+  SidebarGroup,
 } from "@/components/ui/sidebar";
+import { NavUser } from "@/components/nav-user";
+import { NavLink } from "react-router-dom"; // Ensure React Router is being used for dynamic navigation
 
 const data = {
   user: {
-    name: "shadrack",
-    email: "shadrack@gmail.com",
-    avatar: "@/public/myimg.jpeg",
+    name: "antohshadrack",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg",
   },
-  navMain: [
-    {
-      title: "New Chat",
-      url: "#",
-      icon: BookOpenCheck,
-    },
-    {
-      title: "Chat History",
-      url: "#",
-      icon: Clock,
-      items: [
-        {
-          title: "Chat1",
-          url: "#",
-        },
-        {
-          title: "Chat2",
-          url: "#",
-        },
-        {
-          title: "Chat3",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "FAQs",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Sextortion",
-          url: "#",
-        },
-        {
-          title: "Blackmail",
-          url: "#",
-        },
-      ],
-    },
+  mainmenu: [
+    { name: "Resource Hub", url: "/resourcehub", icon: Lightbulb },
+    { name: "Report Incident", url: "/report", icon: File },
   ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
+  chatMenu: [{ name: "Chat", url: "/chat", icon: MessageCircleMore }],
+  chatHistoryMenu: {
+    name: "Chat History",
+    items: [
+      { title: "chat session", url: "/chat/#1" },
+      { title: "chat session", url: "/chat/#2" },
+      { title: "chat session", url: "/chat/#3" },
+    ],
+    icon: History,
+  },
 };
+import { Separator } from "@/components/ui/separator";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [activeMainMenu, setActiveMainMenu] = useState<string>("/resourcehub");
+  const [activeSubmenu, setActiveSubmenu] = useState<string>("");
+
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar collapsible="icon" {...props} variant="inset">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -103,18 +66,133 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <Command className="size-4" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Anita AI</span>
-                  <span className="truncate text-xs">Sextortion & Blackmail Chatbot</span>
+                  <span className="truncate font-semibold">Eve Inc</span>
+                  <span className="truncate text-xs">
+                    Blackmail & Sextortion Fighter
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
+
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* Group for Main Menu */}
+        <SidebarGroup>
+          <SidebarMenu>
+            {data.mainmenu.map((item) => (
+              <SidebarMenuItem key={item.name}>
+                <SidebarMenuButton
+                  onClick={() => setActiveMainMenu(item.url)}
+                  className={`${activeMainMenu === item.url ? "bg-mblue" : ""}`}
+                  asChild
+                >
+                  <NavLink to={item.url}>
+                    <item.icon
+                      className={`${
+                        activeMainMenu === item.url
+                          ? " text-mwhite"
+                          : "text-mblue"
+                      }`}
+                    />
+                    <span
+                      className={`${
+                        activeMainMenu === item.url
+                          ? "text-sm font-light text-mwhite"
+                          : "text-sm font-light text-slate-800"
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        {/* Group for Chat Menu */}
+        <SidebarGroup>
+          <SidebarMenu>
+            {data.chatMenu.map((item) => (
+              <SidebarMenuItem key={item.name}>
+                <SidebarMenuButton
+                  onClick={() => setActiveMainMenu(item.url)}
+                  className={`${
+                    activeMainMenu === item.url ? "bg-mblue text-white" : ""
+                  }`}
+                  asChild
+                >
+                  <NavLink to={item.url}>
+                    <item.icon
+                      className={`${
+                        activeMainMenu === item.url
+                          ? " text-mwhite"
+                          : "text-mblue"
+                      }`}
+                    />
+                    <span
+                      className={`${
+                        activeMainMenu === item.url
+                          ? "text-sm font-light text-mwhite"
+                          : "text-sm font-light text-slate-800"
+                      }`}
+                    >
+                      {item.name}
+                    </span>
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+
+        {/* Group for Chat History */}
+        <SidebarGroup>
+          <SidebarMenu>
+            <Collapsible>
+              <CollapsibleTrigger asChild>
+                <SidebarMenuButton tooltip={data.chatHistoryMenu.name}>
+                  <data.chatHistoryMenu.icon className="text-mblue" />
+                  <span className="text-sm font-light text-slate-800">
+                    {data.chatHistoryMenu.name}
+                  </span>
+                  <ChevronRight
+                    className={`ml-auto transition-transform duration-200 ${
+                      activeMainMenu === data.chatHistoryMenu.name
+                        ? "rotate-90"
+                        : ""
+                    }`}
+                  />
+                </SidebarMenuButton>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <SidebarMenuSub>
+                  {data.chatHistoryMenu.items.map((subItem) => (
+                    <SidebarMenuSubItem key={subItem.title}>
+                      <SidebarMenuSubButton asChild>
+                        <NavLink
+                          to={subItem.url}
+                          className={`${
+                            activeMainMenu === subItem.url
+                              ? "bg-mblue text-white"
+                              : "text-xs font-light text-slate-800"
+                          }`}
+                          onClick={() => setActiveMainMenu(subItem.url)}
+                        >
+                          {subItem.title}
+                        </NavLink>
+                      </SidebarMenuSubButton>
+                    </SidebarMenuSubItem>
+                  ))}
+                </SidebarMenuSub>
+              </CollapsibleContent>
+            </Collapsible>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>

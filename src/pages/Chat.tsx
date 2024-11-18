@@ -3,7 +3,7 @@ const Chat = () => {
   return (
     <>
       <main className="w-full h-screen flex-col md:flex-row relative">
-        <ChatComponent />
+        <ChatComponent></ChatComponent>
       </main>
     </>
   );
