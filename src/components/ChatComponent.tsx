@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { SendHorizontal, Paperclip } from "lucide-react";
 import ChatMessage from "./ChatMessage"; // Ensure you have a `ChatMessage` component for displaying messages
 import { BorderBeam } from "@/components/ui/border-beam.tsx"; // Your border component (adjust as necessary)
@@ -18,10 +18,10 @@ const ChatComponent = () => {
     );
   }
 
-  const { authTokens, logoutUser } = context;
+  const { authTokens  } = context;
 
   // State for profile info, messages, and input value
-  const [profile, setProfile] = useState<any[]>([]);
+  // const [profile, setProfile] = useState<any[]>([""]);
   const [messages, setMessages] = useState<Message[]>([
     { sender: "bot", text: "Hello! How can I help you today?" },
   ]);
@@ -31,25 +31,27 @@ const ChatComponent = () => {
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   // Fetch profile once when the component mounts
-  useEffect(() => {
-    getProfile();
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  // useEffect(() => {
+  //   getProfile();
+  //   messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [messages]);
 
-  const getProfile = async () => {
-    try {
-      const response = await fetchWithAuth("http://127.0.0.1:8000/api/profile");
-      if (response.status === 200) {
-        const data = await response.json();
-        setProfile(data);
-      } else if (response.status === 401) {
-        logoutUser();
-      }
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      // logoutUser();
-    }
-  };
+  // const getProfile = async () => {
+  //   try {
+  //     const response = await fetchWithAuth(
+  //       "https://djangoredeploy.onrender.com/api/profile"
+  //     );
+  //     if (response.status === 200) {
+  //       const data = await response.json();
+  //       setProfile(data);
+  //     } else if (response.status === 401) {
+  //       logoutUser();
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching profile:", error);
+  //     // logoutUser();
+  //   }
+  // };
 
   // Helper function to send authorized fetch requests
   const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
@@ -80,10 +82,13 @@ const ChatComponent = () => {
     if (isNewChat) setIsNewChat(false);
 
     try {
-      const response = await fetchWithAuth("http://127.0.0.1:8000/api/chat/", {
-        method: "POST",
-        body: JSON.stringify({ message: inputValue }),
-      });
+      const response = await fetchWithAuth(
+        "https://djangoredeploy.onrender.com:8000/api/chat/",
+        {
+          method: "POST",
+          body: JSON.stringify({ message: inputValue }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Network response was not ok");
