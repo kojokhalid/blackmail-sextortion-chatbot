@@ -1,5 +1,5 @@
 // AuthContext.tsx
-import React, { createContext, useState, ReactNode, useContext } from "react";
+import React, { createContext, useState, ReactNode,} from "react";
 
 interface AuthTokens {
   access: string;
@@ -30,34 +30,37 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     window.location.href = "/login"; // Redirect to login page
   };
 
-const loginUser = async (values: { username: string; password: string }) => {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+  const loginUser = async (values: { username: string; password: string }) => {
+    try {
+      const response = await fetch(
+        "https://djangoredeploy.onrender.com/api/token/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
 
-    if (response.ok) {
-      const data = await response.json();
-      localStorage.setItem("access_token", data.access);
-      localStorage.setItem("refresh_token", data.refresh);
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("access_token", data.access);
+        localStorage.setItem("refresh_token", data.refresh);
 
-      setAuthTokens({
-        access: data.access,
-        refresh: data.refresh,
-      });
-    } else {
-      const errorData = await response.json(); // Extract error 
-      throw new Error(errorData.detail || "Login failed");
+        setAuthTokens({
+          access: data.access,
+          refresh: data.refresh,
+        });
+      } else {
+        const errorData = await response.json(); // Extract error
+        throw new Error(errorData.detail || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      throw error;
     }
-  } catch (error) {
-    console.error("Login error:", error);
-    throw error;
-  }
-};
+  };
   return (
     <AuthContext.Provider
       value={{ authTokens, setAuthTokens, logoutUser, loginUser }}

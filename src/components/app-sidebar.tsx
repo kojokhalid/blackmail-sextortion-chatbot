@@ -49,11 +49,9 @@ const data = {
     icon: History,
   },
 };
-import { Separator } from "@/components/ui/separator";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [activeMainMenu, setActiveMainMenu] = useState<string>("/resourcehub");
-  const [activeSubmenu, setActiveSubmenu] = useState<string>("");
 
   return (
     <Sidebar collapsible="icon" {...props} variant="inset">

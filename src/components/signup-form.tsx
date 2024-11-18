@@ -43,9 +43,12 @@ const formSchema = z
     }
   });
 async function getCsrfToken() {
-  const response = await fetch("http://localhost:8000/api/get-csrf-token/", {
-    credentials: "include",
-  });
+  const response = await fetch(
+    "https://djangoredeploy.onrender.com/api/get-csrf-token/",
+    {
+      credentials: "include",
+    }
+  );
   const data = await response.json();
   return data.csrfToken;
 }
@@ -54,7 +57,7 @@ export function SignUpForm() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [csrfToken, setCsrfToken] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, ] = useState("");
   const [isLoading, setIsLoading] = useState(false); // State for loading
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,7 +83,11 @@ export function SignUpForm() {
     try {
       const response = await axios.post(
         "http://localhost:8000/api/sign-up/",
-        values
+        values, {
+          headers: {
+            "X-CSRFToken": csrfToken, // Include CSRF token in request headers
+          },
+      }
       );
 
       toast({

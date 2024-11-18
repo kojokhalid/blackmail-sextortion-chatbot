@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
-import { TextRevealDemo } from "@/components/TextReveal";
 const Hero: React.FC = () => {
-  const [cards, setCards] = useState([
+  const [cards, ] = useState([
     {
       id: 1,
       image:
