@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useAuthContext } from "@/hooks/useAuthContext"; // Adjust the path if necessary
 import {
   Command,
   ChevronRight,
@@ -52,7 +53,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [activeMainMenu, setActiveMainMenu] = useState<string>("/resourcehub");
-
+  const { username } = useAuthContext();
   return (
     <Sidebar collapsible="icon" {...props} variant="inset">
       <SidebarHeader>
@@ -190,10 +191,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      {username && (
+        <SidebarFooter>
+          <NavUser user={data.user} />
+        </SidebarFooter>
+      )}
     </Sidebar>
   );
 }

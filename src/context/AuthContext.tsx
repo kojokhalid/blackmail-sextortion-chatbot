@@ -9,6 +9,8 @@ interface AuthTokens {
 interface AuthContextType {
   authTokens: AuthTokens | null;
   setAuthTokens: React.Dispatch<React.SetStateAction<AuthTokens | null>>;
+  username: string | null;
+  setUsername: React.Dispatch<React.SetStateAction<string | null>>;
   logoutUser: () => void;
   loginUser: (values: { username: string; password: string }) => Promise<void>;
 }
@@ -22,14 +24,15 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authTokens, setAuthTokens] = useState<AuthTokens | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
 
   const logoutUser = () => {
     setAuthTokens(null);
+    setUsername(null);
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     window.location.href = "/login"; // Redirect to login page
   };
-
   const loginUser = async (values: { username: string; password: string }) => {
     try {
       const response = await fetch(
@@ -52,6 +55,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           access: data.access,
           refresh: data.refresh,
         });
+        setUsername(values.username); // Save username in context
       } else {
         const errorData = await response.json(); // Extract error
         throw new Error(errorData.detail || "Login failed");
@@ -61,11 +65,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       throw error;
     }
   };
+
   return (
     <AuthContext.Provider
-      value={{ authTokens, setAuthTokens, logoutUser, loginUser }}
+      value={{
+        authTokens,
+        setAuthTokens,
+        username,
+        setUsername,
+        logoutUser,
+        loginUser,
+      }}
     >
-      {children} {/* Render the children passed into this provider */}
+      {children}
     </AuthContext.Provider>
   );
 };

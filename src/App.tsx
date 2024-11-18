@@ -26,7 +26,6 @@ function App() {
               </MainLayout>
             }
           ></Route>
-          <Route path="/" element={<Login></Login>}></Route>
           <Route
             index
             path="/resourcehub"
@@ -38,6 +37,14 @@ function App() {
           ></Route>
           <Route
             index
+            path="/"
+            element={
+              <MainLayout>
+                <ResourceHub></ResourceHub>
+              </MainLayout>
+            }
+          ></Route>
+          <Route
             path="/report"
             element={
               <MainLayout>
@@ -45,8 +52,7 @@ function App() {
               </MainLayout>
             }
           ></Route>
-
-          <Route index path="/login" element={<Login></Login>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
           <Route path="/signup" element={<Signup></Signup>}></Route>
           <Route path="/verify-otp" element={<OTP></OTP>}></Route>
         </Routes>

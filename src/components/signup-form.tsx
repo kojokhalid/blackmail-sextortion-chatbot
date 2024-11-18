@@ -84,6 +84,11 @@ export function SignUpForm() {
       const response = await axios.post(
         "https://djangoredeploy.onrender.com/api/sign-up/",
         values,
+        {
+          headers: {
+            "X-CSRFToken": csrfToken, // Include CSRF token in request headers
+          },
+        }
       );
 
       toast({
