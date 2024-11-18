@@ -15,7 +15,7 @@ let notifications = [
   {
     name: "Threat: Release of Private Photos",
     description:
-      "If you don’t send HS500, I’ll share your photos with everyone.",
+      "If you don’t send GHS500, I’ll share your photos with everyone.",
     time: "5m ago",
     icon: "📸",
     color: "#E74C3C",

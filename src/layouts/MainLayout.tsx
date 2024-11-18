@@ -1,5 +1,6 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { Link } from "react-router-dom";
 import {
   SidebarInset,
   SidebarProvider,
@@ -26,7 +27,11 @@ export default function MainLayout({
           <div className="py-6 ml-2 sticky top-0 z-10 bg-mwhite min-h-10 flex">
             <SidebarTrigger />
             <div className="absolute top-0 right-6 font-light">
-              <RainbowButton className="mt-4 text-sm" >Get Help Now</RainbowButton>
+              <Link to="/report">
+                <RainbowButton className="mt-4 text-sm">
+                  Get Help Now
+                </RainbowButton>
+              </Link>
             </div>
           </div>
           {children}
