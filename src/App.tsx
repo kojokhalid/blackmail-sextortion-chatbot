@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Chat from "./pages/Chat";
 import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/Login";
@@ -12,61 +12,54 @@ import { Toaster } from "@/components/ui/toaster";
 import ChatSession from "./pages/ChatSession";
 import NotFound from "./pages/NotFound";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    index:true,
+    element: <MainLayout children={<ResourceHub />}/>,
+  },
+  {
+    path: "/resourcehub",
+    index:true,
+    element: <MainLayout children={<ResourceHub />}/>,
+  },
+      {
+        path: "/chat",
+        element: <MainLayout children={<Chat />}/>,
+      },
+      {
+        path: "/chat/:sessionId",
+        element: <MainLayout children={<ChatSession />} />,
+      },
+      {
+        path: "/report",
+        element: <MainLayout children={<Report />} />,
+      },
+  
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
+  },
+  {
+    path: "/verify-otp",
+    element: <OTP />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+]);
+
 function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Toaster />
-        <Routes>
-          <Route
-            path="/chat"
-            element={
-              <MainLayout >
-                <Chat></Chat>
-              </MainLayout>
-            }
-          ></Route>
-            <Route
-            path="/chat/:sessionId"
-            element={
-              <MainLayout>
-                <ChatSession></ChatSession>
-              </MainLayout>
-            }
-          ></Route>
-          <Route
-            index
-            path="/resourcehub"
-            element={
-              <MainLayout>
-                <ResourceHub></ResourceHub>
-              </MainLayout>
-            }
-          ></Route>
-          <Route
-            index
-            path="/"
-            element={
-              <MainLayout>
-                <ResourceHub></ResourceHub>
-              </MainLayout>
-            }
-          ></Route>
-          <Route
-            path="/report"
-            element={
-              <MainLayout>
-                <Report></Report>
-              </MainLayout>
-            }
-          ></Route>
-          <Route path="/login" element={<Login></Login>}></Route>
-          <Route path="/signup" element={<Signup></Signup>}></Route>
-          <Route path="/verify-otp" element={<OTP></OTP>}></Route>
-          <Route path={"*"} element={<NotFound></NotFound>}></Route>
-        </Routes>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <Toaster />
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }
 
