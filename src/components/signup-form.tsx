@@ -189,7 +189,7 @@ export function SignUpForm({title,subtitle}:FormDetails) {
             <FormDescription>
               <span className="mt-4 text-center text-sm justify-center flex ">
                 Already have an account ? &nbsp;
-                <Link className="underline" to="/">
+                <Link className="underline" to="/login">
                   Log in
                 </Link>
               </span>
