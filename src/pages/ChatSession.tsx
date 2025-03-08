@@ -11,7 +11,11 @@ type Message = {
   sender: "user" | "bot";
   text: string;
 };
-
+ export const Feedback = () => {
+    return (
+      <div>feedback 1</div>
+    )
+  }
 const ChatSession = () => {
   const { username, fetchWithAuth } = useAuthContext();
 
@@ -137,6 +141,9 @@ const ChatSession = () => {
     }
   };
 
+  
+ 
+  
   return (
     <main className="w-full h-screen flex-col md:flex-row relative">
       {isLoading && <MoonLoader size={50} />}
@@ -144,6 +151,9 @@ const ChatSession = () => {
          <div className="overflow-y-scroll flex flex-col w-full max-w-3xl mx-auto text-black relative h-[700px] sm:h-[700px] lg:h-[700px] md:h-[1200px]">
         <div className="px-6">
           {messages.map((message, index) => (
+
+            
+
             <ChatMessage
               key={index}
               sender={message.sender}
@@ -151,9 +161,12 @@ const ChatSession = () => {
                 message.sender === "bot" ?
                    <ReactMarkdown>{message.text}</ReactMarkdown> : message.text
               }
-              // typing={isLoading}
+
             />
+            
+            
           ))}
+          
            {isBotTyping && (
             <div className="flex items-center space-x-2">
                <Skeleton className="h-4 w-4 rounded-full "/>

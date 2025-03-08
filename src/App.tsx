@@ -11,31 +11,34 @@ import Report from "./pages/Report";
 import { Toaster } from "@/components/ui/toaster";
 import ChatSession from "./pages/ChatSession";
 import NotFound from "./pages/NotFound";
+import FeedbackPage from "./pages/FeedbackPage";
+import Admin from "./pages/Admin";
+import AdminLayout from "./layouts/AdminLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    index:true,
-    element: <MainLayout children={<ResourceHub />}/>,
+    index: true,
+    element: <MainLayout children={<ResourceHub />} />,
   },
   {
     path: "/resourcehub",
-    index:true,
-    element: <MainLayout children={<ResourceHub />}/>,
+    index: true,
+    element: <MainLayout children={<ResourceHub />} />,
   },
-      {
-        path: "/chat",
-        element: <MainLayout children={<Chat />}/>,
-      },
-      {
-        path: "/chat/:sessionId",
-        element: <MainLayout children={<ChatSession />} />,
-      },
-      {
-        path: "/report",
-        element: <MainLayout children={<Report />} />,
-      },
-  
+  {
+    path: "/chat",
+    element: <MainLayout children={<Chat />} />,
+  },
+  {
+    path: "/chat/:sessionId",
+    element: <MainLayout children={<ChatSession />} />,
+  },
+  {
+    path: "/report",
+    element: <MainLayout children={<Report />} />,
+  },
+
   {
     path: "/login",
     element: <Login />,
@@ -52,6 +55,8 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFound />,
   },
+  { path: "/feedback", element: <MainLayout children={<FeedbackPage />} /> },
+  { path: "/admin", element: <AdminLayout children={<Admin />} /> },
 ]);
 
 function App() {
