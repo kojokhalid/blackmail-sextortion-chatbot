@@ -15,10 +15,14 @@ export const Footer = () => {
   );
 };
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <SidebarProvider>
-      <AppSidebar role="user"/>
+      <AppSidebar role="admin" />
       <SidebarInset>
         <main>
           <div className="py-6 sticky top-0 z-10 bg-white bg-opacity-50 backdrop-blur-md max-h-6 flex">
