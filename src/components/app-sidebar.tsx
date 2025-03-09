@@ -150,12 +150,11 @@ export function AppSidebar({
 
   return (
     <Sidebar collapsible="icon" {...props} variant="floating">
-      {/* Sidebar Header */}
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <a href="/">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <Command className="size-4" />
                 </div>
@@ -171,9 +170,7 @@ export function AppSidebar({
         </SidebarMenu>
       </SidebarHeader>
 
-      {/* Sidebar Content */}
       <SidebarContent>
-        {/* Main Navigation */}
         <SidebarGroup>
           <SidebarMenu>
             {(role === "admin" ? adminMenu : userMenu).map((item, index) => (
@@ -189,60 +186,22 @@ export function AppSidebar({
           </SidebarMenu>
         </SidebarGroup>
 
-        {/* Chat History (Only for Users) */}
-        {role === "user" && username && (
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-xs">Chats</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {chatdata.map((item, index) => (
-                  <SidebarMenuItem key={index}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={isActivePath(`/chat/${item.sessionId}`)}
-                    >
-                      <Link to={`/chat/${item.sessionId}`}>
-                        <span className="text-sm">{item.sessionTitle}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-                {isLoading && (
-                  <SidebarMenuItem>
-                    <div className="space-y-2">
-                      <Skeleton className="h-6 w-[220px]" />
-                      <Skeleton className="h-6 w-[200px]" />
-                      <Skeleton className="h-6 w-[190px]" />
-                      <Skeleton className="h-6 w-[170px]" />
-                    </div>
-                  </SidebarMenuItem>
-                )}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
-      </SidebarContent>
-
-      {/* Sidebar Footer */}
-      <SidebarFooter>
         <SidebarGroup>
-          <SidebarGroupContent>
+          <SidebarMenu>
             <Dialog>
               <DialogTrigger asChild>
-                <SidebarMenu>
-      
-                    <SidebarMenuButton>
-                      <LifeBuoy size={15} />
-                      <span className="text-sm">Feedback</span>
-                    </SidebarMenuButton>
-              
-                </SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton size="default">
+                    <LifeBuoy size={15} />
+                    <span className="text-sm">Feedback</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
+              <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Feedback</DialogTitle>
                   <DialogDescription>
-                    Your input is valuable in helping us improve this project.
+                    Your input helps us improve.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
@@ -322,9 +281,42 @@ export function AppSidebar({
                 </div>
               </DialogContent>
             </Dialog>
-          </SidebarGroupContent>
+          </SidebarMenu>
         </SidebarGroup>
-
+        {role === "user" && username && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-xs">Chats</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {chatdata.map((item, index) => (
+                  <SidebarMenuItem key={index}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActivePath(`/chat/${item.sessionId}`)}
+                    >
+                      <Link to={`/chat/${item.sessionId}`}>
+                        <span className="text-sm text-neutral-500">{item.sessionTitle}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+                {isLoading && (
+                  <SidebarMenuItem>
+                    <div className="space-y-2">
+                      <Skeleton className="h-6 w-[220px]" />
+                      <Skeleton className="h-6 w-[200px]" />
+                      <Skeleton className="h-6 w-[190px]" />
+                      <Skeleton className="h-6 w-[170px]" />
+                    </div>
+                  </SidebarMenuItem>
+                )}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+      </SidebarContent>
+      {/* Sidebar Footer */}
+      <SidebarFooter>
         {/* User Auth Section */}
         {username ? (
           <NavUser
