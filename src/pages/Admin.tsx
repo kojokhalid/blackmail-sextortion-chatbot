@@ -1,7 +1,6 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -35,7 +34,7 @@ const Admin = () => {
       .catch((error) => {
         toast({
           title: "Error",
-          description: "Something went wrong, while fetching feedback data",
+          description: error.message,
         });
       })
       .finally(() => {
