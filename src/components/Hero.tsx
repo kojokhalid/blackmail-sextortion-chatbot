@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
               style={{ fontFamily: "Syne, sans-serif" }}
             >
               Awareness is the first step in defending against online blackmail
-              and sextortion. Stay informed and take control.
+              and sextortion. Stay informed and take control
             </p>
       <BorderBeam />
     </div>
