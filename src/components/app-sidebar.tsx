@@ -230,12 +230,12 @@ export function AppSidebar({
             <Dialog>
               <DialogTrigger asChild>
                 <SidebarMenu>
-                  <SidebarMenuItem>
+      
                     <SidebarMenuButton>
                       <LifeBuoy size={15} />
                       <span className="text-sm">Feedback</span>
                     </SidebarMenuButton>
-                  </SidebarMenuItem>
+              
                 </SidebarMenu>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
