@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useAuthContext } from "@/hooks/useAuthContext"; // Adjust the path if necessary
-import {
-  Command,
-  File,
-  History,
-  Lightbulb,
-  MessageCircleMore,
-  LogIn,
-  UserPlus,
-} from "lucide-react";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import { Link, useLocation } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
-
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
@@ -22,70 +12,82 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarGroupContent,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
-import { Link, useLocation } from "react-router-dom"; // Ensure React Router is being used for dynamic navigation
 import { Button } from "@/components/ui/button";
+import {
+  Command,
+  File,
+  Lightbulb,
+  MessageCircleMore,
+  LifeBuoy,
+  LogIn,
+  UserPlus,
+  Users,
+  Settings,
+  BarChart3,
+} from "lucide-react";
 
-const data = {
-  user: {
-    name: "antohshadrack",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-
-  chatMenu: [{ name: "Chat", url: "/chat", icon: MessageCircleMore }],
-  chatHistoryMenu: {
-    name: "Chat History",
-    items: [
-      { title: "chat session", url: "/chat/#1" },
-      { title: "chat session", url: "/chat/#2" },
-      { title: "chat session", url: "/chat/#3" },
-    ],
-    icon: History,
-  },
-};
-
-interface chatdata {
-  sessionId: String;
-  sessionTitle: String;
+interface ChatData {
+  sessionId: string;
+  sessionTitle: string;
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface SidebarProps extends React.ComponentProps<typeof Sidebar> {
+  role: "user" | "admin";
+}
+
+export function AppSidebar({ role, ...props }: SidebarProps) {
   const { username, fetchWithAuth } = useAuthContext();
   const location = useLocation();
-  const [chatdata, setChatdata] = useState<chatdata[]>([]);
+  const [chatdata, setChatdata] = useState<ChatData[]>([]);
   const [isLoading, setLoading] = useState(true);
-  // Fetch user chat
-  const getUserchat = async () => {
-    try {
-      const response = await fetchWithAuth(
-        "https://eve-chatbot-stmh.onrender.com/api/chat/auth",
-        { method: "GET" }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        // console.log(data.data);
-        setChatdata(data.data); // Update username dynamically
-      } else {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || "Cannot fetch user chat");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  };
 
+  // Fetch user chat
   useEffect(() => {
-    getUserchat();
-  }, [location,username]);
- 
+    if (role === "user") {
+      const getUserChat = async () => {
+        try {
+          const response = await fetchWithAuth(
+            "https://eve-chatbot-stmh.onrender.com/api/chat/auth",
+            { method: "GET" }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setChatdata(data.data);
+          } else {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Cannot fetch user chat");
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      getUserChat();
+    }
+  }, [location, username, role]);
+
   const isActivePath = (path: string) => location.pathname === path;
+
+  // Define menu items based on role
+  const userMenu = [
+    { name: "Resource Hub", url: "/resourcehub", icon: Lightbulb },
+    { name: "Report", url: "/report", icon: File },
+    { name: "New Chat", url: "/chat", icon: MessageCircleMore },
+  ];
+
+  const adminMenu = [
+    { name: "Dashboard", url: "/admin", icon: BarChart3 },
+    { name: "User Management", url: "/admin/users", icon: Users },
+    { name: "Settings", url: "/admin/settings", icon: Settings },
+  ];
+
   return (
     <Sidebar collapsible="icon" {...props} variant="floating">
+      {/* Sidebar Header */}
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -106,46 +108,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
 
+      {/* Sidebar Content */}
       <SidebarContent>
-        {/* Group for Main Menu */}
+        {/* Main Navigation */}
         <SidebarGroup>
           <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
-                isActive={isActivePath("/resourcehub")}
-              >
-                <Link to="/resourcehub">
-                  <Lightbulb />
-                  <span className="text-sm">Resource Hub</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActivePath("/report")}>
-                <Link to="/report">
-                  <File />
-                  <span className="text-sm">Report</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild isActive={isActivePath("/chat")}>
-                <Link to="/chat">
-                  <MessageCircleMore />
-                  <span className="text-sm">New Chat</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            {(role === "admin" ? adminMenu : userMenu).map((item, index) => (
+              <SidebarMenuItem key={index}>
+                <SidebarMenuButton asChild isActive={isActivePath(item.url)}>
+                  <Link to={item.url}>
+                    <item.icon />
+                    <span className="text-sm">{item.name}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
           </SidebarMenu>
         </SidebarGroup>
-        {/* Group for Chat Menu */}
-        {username && (
-          
+
+        {/* Chat History (Only for Users) */}
+        {role === "user" && username && (
           <SidebarGroup>
             <SidebarGroupLabel className="text-xs">Chats</SidebarGroupLabel>
-
             <SidebarGroupContent>
               <SidebarMenu>
                 {chatdata.map((item, index) => (
@@ -176,9 +160,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         )}
       </SidebarContent>
 
+      {/* Sidebar Footer */}
       <SidebarFooter>
+        {/* Feedback Button */}
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenuItem>
+              <SidebarMenuButton>
+                <LifeBuoy size={15} /> Feedback
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* User Auth Section */}
         {username ? (
-          <NavUser user={data.user} />
+          <NavUser
+            user={{
+              name: username,
+              email: "user@example.com",
+              avatar: "/avatars/user.jpg",
+            }}
+          />
         ) : (
           <>
             <SidebarMenu>
@@ -186,7 +189,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuButton size="default" asChild>
                   <Button variant="outline" asChild>
                     <Link to="/login">
-                      <div></div>
                       <LogIn />
                       <span className="truncate">Login</span>
                     </Link>
@@ -199,9 +201,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuButton size="default" asChild>
                   <Button variant="default" asChild>
                     <Link to="/signup">
-                      <div></div>
                       <UserPlus />
-                      <span className="truncate">Sign up</span>
+                      <span className="truncate">Sign Up</span>
                     </Link>
                   </Button>
                 </SidebarMenuButton>
