@@ -28,79 +28,79 @@ import {
   Settings,
   BarChart3,
 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogHeader,
+//   DialogTitle,
+//   DialogTrigger,
+// } from "./ui/dialog";
 
-import { Input } from "antd";
-import MoonLoader from "react-spinners/MoonLoader";
-import {
-  Form,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormMessage,
-} from "./ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import axios from "axios";
-import { toast } from "@/hooks/use-toast";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+// import { Input } from "antd";
+// import MoonLoader from "react-spinners/MoonLoader";
+// import {
+//   Form,
+//   FormField,
+//   FormItem,
+//   FormLabel,
+//   FormControl,
+//   FormMessage,
+// } from "./ui/form";
+// import { useForm } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { z } from "zod";
+// import axios from "axios";
+// import { toast } from "@/hooks/use-toast";
+// import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 interface ChatData {
   sessionId: string;
   sessionTitle: string;
 }
 
-const formSchema = z.object({
-  feedback: z.string().min(2, {
-    message: "Please enter at least 2 Characters",
-  }),
-  helpfulness: z.string().min(2, {
-    message: "Helpfulness must be atleast least 2 characters.",
-  }),
-});
+// const formSchema = z.object({
+//   feedback: z.string().min(2, {
+//     message: "Please enter at least 2 Characters",
+//   }),
+//   helpfulness: z.string().min(2, {
+//     message: "Helpfulness must be atleast least 2 characters.",
+//   }),
+// });
 
 export function AppSidebar({
   role,
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      feedback: "",
-      helpfulness: "",
-    },
-  });
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true);
-    await axios
-      .post("http://localhost:8000/api/feedback/v1", values)
-      .then((response) => {
-        if (response.status === 200) {
-          toast({
-            title: "Feedback submitted",
-            description: "Thank you for your feedback",
-          });
-        }
-      })
-      .catch((error) => {
-        toast({
-          title: "Feedback not submitted",
-          description: error,
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }
+  // const form = useForm<z.infer<typeof formSchema>>({
+  //   resolver: zodResolver(formSchema),
+  //   defaultValues: {
+  //     feedback: "",
+  //     helpfulness: "",
+  //   },
+  // });
+  // async function onSubmit(values: z.infer<typeof formSchema>) {
+  //   setLoading(true);
+  //   await axios
+  //     .post("http://localhost:8000/api/feedback/v1", values)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //         toast({
+  //           title: "Feedback submitted",
+  //           description: "Thank you for your feedback",
+  //         });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       toast({
+  //         title: "Feedback not submitted",
+  //         description: error,
+  //       });
+  //     })
+  //     .finally(() => {
+  //       setLoading(false);
+  //     });
+  // }
   const { username, fetchWithAuth } = useAuthContext();
   const location = useLocation();
   const [chatdata, setChatdata] = useState<ChatData[]>([]);
@@ -188,15 +188,21 @@ export function AppSidebar({
 
         <SidebarGroup>
           <SidebarMenu>
-            <Dialog>
-              <DialogTrigger asChild>
-                <SidebarMenuItem>
-                  <SidebarMenuButton size="default">
-                    <LifeBuoy size={15} />
-                    <span className="text-sm">Feedback</span>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              </DialogTrigger>
+            <SidebarMenuItem>
+              <SidebarMenuButton size="default">
+                <LifeBuoy size={15} />
+                <a
+                  href={
+                    "https://docs.google.com/forms/d/e/1FAIpQLScQ-NFz_75RORepkFrBZkVqwhnDCDL_7QS-kr-cs0JHz0Sv8g/viewform?usp=header"
+                  }
+                  target="_blank"
+                >
+                  <span className="text-sm">Feedback</span>
+                </a>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            {/* <Dialog>
+              <DialogTrigger asChild></DialogTrigger>
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Feedback</DialogTitle>
@@ -211,7 +217,7 @@ export function AppSidebar({
                       className="space-y-8"
                     >
                       {/* how helpful */}
-                      <FormField
+            {/* <FormField
                         control={form.control}
                         name="helpfulness"
                         render={({ field }) => (
@@ -279,8 +285,8 @@ export function AppSidebar({
                     </form>
                   </Form>
                 </div>
-              </DialogContent>
-            </Dialog>
+              </DialogContent> */}
+            {/* </Dialog> */}
           </SidebarMenu>
         </SidebarGroup>
         {role === "user" && username && (
@@ -295,7 +301,9 @@ export function AppSidebar({
                       isActive={isActivePath(`/chat/${item.sessionId}`)}
                     >
                       <Link to={`/chat/${item.sessionId}`}>
-                        <span className="text-sm text-neutral-500">{item.sessionTitle}</span>
+                        <span className="text-sm text-neutral-500">
+                          {item.sessionTitle}
+                        </span>
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
