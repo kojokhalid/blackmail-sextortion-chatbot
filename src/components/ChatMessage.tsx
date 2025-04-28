@@ -44,7 +44,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
    };
 
    try {
-     await axios.post("http://localhost:8000/api/feedback/v1/chat", value);
+     await axios.post("https://eve-chatbot-stmh.onrender.com/api/feedback/v1/chat", value);
      toast({
        title: "Response submitted",
        description: "Thank you for your feedback",
