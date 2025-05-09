@@ -138,7 +138,7 @@ export function AppSidebar({
   // Define menu items based on role
   const userMenu = [
     { name: "Resource Hub", url: "/resourcehub", icon: Lightbulb },
-    { name: "Report", url: "/report", icon: File },
+    { name: "Report", url: "https://docs.google.com/forms/d/e/1FAIpQLSfHfTta4NPqOrd2MW3BX4bn54C1XhwiPuwIQMQ-eisdujWpPA/viewform?usp=header", icon: File },
     { name: "New Chat", url: "/chat", icon: MessageCircleMore },
   ];
 
