@@ -26,11 +26,10 @@ const Admin = () => {
   const getFeedbackData = async () => {
     setLoading(true);
     await axios
-      .get("
-https://eve-chatbot-stmh.onrender.com/api/feedback/v1")
+      .get("https://eve-chatbot-stmh.onrender.com/api/feedback/v1")
       .then((response) => {
         setFeedbackData(response.data.data);
-        console.log(response.data);
+        
       })
       .catch((error) => {
         toast({
