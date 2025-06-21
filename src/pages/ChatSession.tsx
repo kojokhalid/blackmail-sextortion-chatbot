@@ -207,7 +207,8 @@ const ChatSession = () => {
       </div>
       <div className=" flex flex-1 m-4 justify-center items-center">
       <div className="fixed p-4 bottom-0 text-slate-400">
-               <p className="text-xs">Eve is still under developmemt, it can make mistakes, so double-check it.</p>
+               <p className="text-xs">© 2025 Safeguard Chatbot. All Rights Reserved.
+This is a beta version of Safeguard Chatbot and is subject to change.</p>
 
       </div>
       </div>

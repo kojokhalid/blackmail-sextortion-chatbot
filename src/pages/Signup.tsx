@@ -12,7 +12,7 @@ const Signup = () => {
         </div>
         <div className="flex flex-col items-center py-1.5">
         <Command size={100} className="text-mblue" />
-        <h3 className="text-xl text-mblack font-medium">Eve</h3>
+        <h3 className="text-xl text-mblack font-medium">Safeguard Chatbot</h3>
         <p className="text-sm text-slate-800">
           Sextortion and Blackmail Awareness{" "}
         </p>

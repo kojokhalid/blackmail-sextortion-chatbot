@@ -11,9 +11,9 @@ export default function Login() {
         </div>
       <div className="flex flex-col items-center py-1.5">
         <Command size={100} className="text-mblue" />
-        <h3 className="text-xl text-mblack font-medium">Sign In to Eve</h3>
+        <h3 className="text-xl text-mblack font-medium">Sign In to Safeguard Chatbot</h3>
         <p className="text-sm text-slate-800">
-          Sextortion and Blackmail Awareness{" "}
+         Awareness and support for a safer digital world.
         </p>
       </div>
 
