@@ -1,5 +1,5 @@
 import { SignUpForm } from "@/components/signup-form";
-import { ChevronLeft, Command } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import {Link} from 'react-router-dom';
 // import safeguardchatlight from "../assets/safeguardchatlight.png";
 import safeguardchatdark from "../assets/safeguardchatdark.png";

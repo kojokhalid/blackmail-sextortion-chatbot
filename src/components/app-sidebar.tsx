@@ -27,7 +27,7 @@ import {
   Settings,
   BarChart3,
 } from "lucide-react";
-import safeguardchat from "../assets/safeguardchat.png";
+import safeguardchatdark from "../assets/safeguardchatdark.png";
 // import {
 //   Dialog,
 //   DialogContent,
@@ -149,20 +149,20 @@ export function AppSidebar({
   ];
 
   return (
-    <Sidebar collapsible="icon" {...props} variant="floating">
+    <Sidebar collapsible="icon" {...props} variant="sidebar">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="/">
-                <div className="flex aspect-square size-8 items-center justify-center text-sidebar-primary-foreground">
-                  <img src={safeguardchat}/>
+                <div className="flex aspect-square size-8 items-center items-center justify-center text-sidebar-primary-foreground">
+                  <img src={safeguardchatdark}/>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">Safeguard Chatbot</span>
-                  {/* <span className="truncate text-xs">
-                    Blackmail & Sextortion Fighter
-                  </span> */}
+                  <span className="truncate text-xs">
+                  Awareness and support for a safer digital world.
+                  </span>
                 </div>
               </a>
             </SidebarMenuButton>
