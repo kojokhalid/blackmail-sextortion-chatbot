@@ -13,6 +13,8 @@ import {
   // SidebarGroupLabel,
   // SidebarGroupContent,
   SidebarFooter,
+  SidebarGroupLabel,
+  SidebarGroupContent,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
 import { Button } from "@/components/ui/button";
@@ -30,6 +32,7 @@ import {
 } from "lucide-react";
 import safeguardchatdark from "../assets/safeguardchatdark.png";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Skeleton } from "./ui/skeleton";
 // import {
 //   Dialog,
 //   DialogContent,
@@ -263,6 +266,41 @@ export function AppSidebar({
             </SidebarMenuItem>
             </SidebarMenu>
 </SidebarGroup>
+{role === "user" && username && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-xs">Chats</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {chatdata.map((item, index) => (
+                  <SidebarMenuItem key={index}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActivePath(`/chat/${item.sessionId}`)}
+                    >
+                      <Link to={`/chat/${item.sessionId}`}>
+                        <span className="text-sm text-neutral-500">
+                          {item.sessionTitle}
+                        </span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+                {isLoading && (
+                  <SidebarMenuItem>
+                    <div className="space-y-2">
+                      <Skeleton className="h-6 w-[220px]" />
+                      <Skeleton className="h-6 w-[200px]" />
+                      <Skeleton className="h-6 w-[190px]" />
+                      <Skeleton className="h-6 w-[170px]" />
+                      <Skeleton className="h-6 w-[170px]" />
+                      <Skeleton className="h-6 w-[170px]" />
+                    </div>
+                  </SidebarMenuItem>
+                )}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
 </SidebarContent>
       <SidebarFooter>
         {/* User Auth Section */}

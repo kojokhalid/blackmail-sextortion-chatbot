@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ThumbsDown, ThumbsUp } from "lucide-react";
 import axios from "axios";
 import { toast } from "@/hooks/use-toast";
+import safeguardchatdark from "../assets/safeguardchatdark.png"
 interface ChatMessageProps {
   sender: "user" | "bot";
   text: string | JSX.Element | boolean; // Allow text
@@ -97,7 +98,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
                 <Avatar className="mr-2">
                   {" "}
                   {/* Add margin to space out the avatar */}
-                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarImage src={safeguardchatdark} />
                   <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
               )}
