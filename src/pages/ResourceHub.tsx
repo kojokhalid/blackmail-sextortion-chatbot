@@ -1,7 +1,7 @@
 
 import Hero from "@/components/Hero";
 import { AnimatedListDemo } from "@/components/AnimatedList";
-import BlurFade from "@/components/ui/blur-fade";
+// import BlurFade from "@/components/ui/blur-fade";
 import { Timeline } from "antd";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -267,71 +267,7 @@ const ResourceHub = () => {
 
       <Separator className="my-10 bg-border dark:bg-border" />
 
-      <section className="bg-muted w-full py-16 px-4 sm:px-8 md:px-12 dark:bg-muted">
-        <div className="mx-auto max-w-6xl">
-          <h2 className="text-3xl sm:text-4xl font-bold text-primary mb-8 text-center dark:text-primary font-syne">
-            Project SafeGuard: Our Mission
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-card p-6 rounded-[--radius] shadow-md border border-border dark:bg-card dark:border-border">
-              <h3 className="text-lg sm:text-xl font-semibold text-secondary mb-4 dark:text-secondary font-syne">
-                About Project SafeGuard
-              </h3>
-              <p className="text-muted-foreground text-base mb-4 dark:text-muted-foreground">
-                Project SafeGuard, an initiative by the University of Mines and Technology Cybersecurity class in Ghana, is dedicated to raising awareness about online blackmail and sextortion, providing resources and support to Ghanaians affected by these threats. Our student-led efforts aim to empower communities with knowledge and tools to stay safe online.
-              </p>
-              <p className="text-muted-foreground text-base dark:text-muted-foreground">
-                Through workshops in schools, community campaigns, and digital resources, we educate Ghanaians on recognizing threats, protecting personal information, and seeking help from local authorities like the Ghana Police Service. Join us in creating a safer digital Ghana.
-              </p>
-            </div>
-            <div className="bg-card p-6 rounded-[--radius] shadow-md border border-border dark:bg-card dark:border-border">
-              <h3 className="text-lg sm:text-xl font-semibold text-secondary mb-4 dark:text-secondary font-syne">
-                Take the Online Safety Pledge
-              </h3>
-              <p className="text-muted-foreground text-base mb-4 dark:text-muted-foreground">
-                Commit to safe online practices and help protect Ghana’s digital community. Your pledge strengthens our fight against online threats.
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="pledge1"
-                    className="h-4 w-4 text-primary border-border rounded focus:ring-2 focus:ring-ring dark:text-primary dark:border-border"
-                  />
-                  <label htmlFor="pledge1" className="text-sm text-foreground dark:text-foreground">
-                    I will secure my mobile money accounts with strong PINs.
-                  </label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="pledge2"
-                    className="h-4 w-4 text-primary border-border rounded focus:ring-2 focus:ring-ring dark:text-primary dark:border-border"
-                  />
-                  <label htmlFor="pledge2" className="text-sm text-foreground dark:text-foreground">
-                    I will report threats to the Ghana Police Service or Cybercrime Unit.
-                  </label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    id="pledge3"
-                    className="h-4 w-4 text-primary border-border rounded focus:ring-2 focus:ring-ring dark:text-primary dark:border-border"
-                  />
-                  <label htmlFor="pledge3" className="text-sm text-foreground dark:text-foreground">
-                    I will educate my community about online safety in Ghana.
-                  </label>
-                </div>
-                <button
-                  className="inline-block bg-primary text-primary-foreground px-6 py-2 rounded-[--radius] font-semibold hover:bg-accent hover:text-accent-foreground transition-colors duration-200 dark:hover:bg-accent dark:hover:text-accent-foreground focus:ring-2 focus:ring-ring focus:outline-none"
-                >
-                  Take the Pledge
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
 
       <footer className="bg-muted w-full py-10 px-4 sm:px-8 md:px-12 dark:bg-muted">
@@ -359,25 +295,25 @@ const ResourceHub = () => {
               </li>
               <li>
                 <a
-                  href="/resources"
+                  href="/report"
                   className="text-muted-foreground hover:text-accent dark:text-muted-foreground dark:hover:text-accent"
                 >
-                  Resources
+                  Reporting
                 </a>
               </li>
               <li>
                 <a
-                  href="/contact"
+                  href="/chat"
                   className="text-muted-foreground hover:text-accent dark:text-muted-foreground dark:hover:text-accent"
                 >
-                  Contact
+                  Chatbot
                 </a>
               </li>
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-semibold text-primary dark:text-primary mb-4 font-syne">
-              Ghana Resources
+              External Resources
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
@@ -400,16 +336,7 @@ const ResourceHub = () => {
                   Data Protection Commission Ghana
                 </a>
               </li>
-              <li>
-                <a
-                  href="https://www.fbi.gov/investigate/violent-crime/cac/sextortion"
-                  className="text-muted-foreground hover:text-accent dark:text-muted-foreground dark:hover:text-accent"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  FBI: Sextortion
-                </a>
-              </li>
+            
             </ul>
           </div>
         </div>

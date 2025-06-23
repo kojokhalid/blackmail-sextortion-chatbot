@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, MessageCircleMore, type LucideIcon } from "lucide-react";
+import {ChevronRight, MessageCircleMore, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import {

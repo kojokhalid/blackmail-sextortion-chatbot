@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { PanelLeftClose } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
@@ -278,7 +278,7 @@ const SidebarTrigger = React.forwardRef<
       }}
       {...props}
     >
-      <PanelLeftClose/> 
+      <ArrowLeft className="transition-transform duration-200 group-data-[state=expanded]/collapsed:rotate-90"/> 
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

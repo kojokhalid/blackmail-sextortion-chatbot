@@ -22,7 +22,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       <SidebarInset>
         <main>
           <div className="py-6 sticky top-0 z-10 bg-white bg-opacity-50 backdrop-blur-md max-h-6 flex">
-            <SidebarTrigger className="absolute top-2" />
+            <SidebarTrigger className="ml-4 absolute top-2" />
             <div className="absolute top-0 right-6 font-light">
               <Link to="/report">
                 <RainbowButton className="text-sm h-8 mt-2">

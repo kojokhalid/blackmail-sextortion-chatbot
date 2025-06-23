@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { Link, useLocation } from "react-router-dom";
-import { Skeleton } from "@/components/ui/skeleton";
+// import { Skeleton } from "@/components/ui/skeleton";
 import {
   Sidebar,
   SidebarContent,
@@ -10,8 +10,8 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarGroup,
-  SidebarGroupLabel,
-  SidebarGroupContent,
+  // SidebarGroupLabel,
+  // SidebarGroupContent,
   SidebarFooter,
 } from "@/components/ui/sidebar";
 import { NavUser } from "@/components/nav-user";
@@ -21,6 +21,7 @@ import {
   Lightbulb,
   MessageCircleMore,
   LifeBuoy,
+  Info,
   LogIn,
   UserPlus,
   Users,
@@ -28,6 +29,7 @@ import {
   BarChart3,
 } from "lucide-react";
 import safeguardchatdark from "../assets/safeguardchatdark.png";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 // import {
 //   Dialog,
 //   DialogContent,
@@ -184,8 +186,7 @@ export function AppSidebar({
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
-        </SidebarGroup>
-
+        </SidebarGroup> 
         <SidebarGroup>
           <SidebarMenu>
             <SidebarMenuItem>
@@ -201,129 +202,68 @@ export function AppSidebar({
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            {/* <Dialog>
-              <DialogTrigger asChild></DialogTrigger>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Feedback</DialogTitle>
-                  <DialogDescription>
-                    Your input helps us improve.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-4 py-4">
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="space-y-8"
-                    >
-                      {/* how helpful */}
-            {/* <FormField
-                        control={form.control}
-                        name="helpfulness"
-                        render={({ field }) => (
-                          <FormItem className="space-y-3">
-                            <FormLabel>Was the chatbot helpful?</FormLabel>
-                            <FormControl>
-                              <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex space-x-1"
-                              >
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="yes" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    Yes
-                                  </FormLabel>
-                                </FormItem>
+           
+                </SidebarMenu>
+                <SidebarMenu>
+                    <SidebarMenuItem>
+                    <Dialog>
+              <DialogTrigger asChild><SidebarMenuButton size="default">
+          <Info size={15} />
+                  <span className="text-sm">About</span>
+              </SidebarMenuButton>
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-[600px] rounded-xl p-6">
+  <DialogHeader>
+  <div className="flex justify-center">
+    
+    <div className="size-36 p-4 rounded-full bg-muted flex items-center justify-center text-white text-4xl">
+    <img src={safeguardchatdark}/>
 
-                                <FormItem className="flex items-center space-x-3 space-y-0">
-                                  <FormControl>
-                                    <RadioGroupItem value="no" />
-                                  </FormControl>
-                                  <FormLabel className="font-normal">
-                                    No
-                                  </FormLabel>
-                                </FormItem>
-                              </RadioGroup>
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+    </div>
+  </div>
+    <DialogTitle className="text-2xl font-bold text-primary text-center">About Project SafeGuard</DialogTitle>
+    
+    <DialogDescription className="text-gray-600 mt-2">
+      Project SafeGuard, an initiative by the University of Mines and Technology Cybersecurity class in Ghana,
+      is dedicated to raising awareness about online blackmail and sextortion, providing resources and support
+      to Ghanaians affected by these threats. Our student-led efforts aim to empower communities with the knowledge
+      and tools to stay safe online.
+    </DialogDescription>
+  </DialogHeader>
 
-                      <FormField
-                        control={form.control}
-                        name="feedback"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Feedback</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Lets have your feedback...."
-                                {...field}
-                              />
-                            </FormControl>
+  <div className="grid gap-4 mt-4">
 
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
+    <div className="grid gap-3 text-gray-700">
+      <p>
+        Through workshops in schools, community campaigns, and digital resources, we educate Ghanaians
+        on recognizing threats, protecting personal information, and seeking help from local authorities
+        like the Ghana Police Service.
+      </p>
+      <p className="font-semibold text-primary">
+        Join us in creating a safer digital Ghana!
+      </p>
+    </div>
+  </div>
 
-                      <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? (
-                          <MoonLoader size={20} color="#fff" />
-                        ) : (
-                          "Submit"
-                        )}
-                      </Button>
-                    </form>
-                  </Form>
-                </div>
-              </DialogContent> */}
-            {/* </Dialog> */}
-          </SidebarMenu>
-        </SidebarGroup>
-        {role === "user" && username && (
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-xs">Chats</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {chatdata.map((item, index) => (
-                  <SidebarMenuItem key={index}>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={isActivePath(`/chat/${item.sessionId}`)}
-                    >
-                      <Link to={`/chat/${item.sessionId}`}>
-                        <span className="text-sm text-neutral-500">
-                          {item.sessionTitle}
-                        </span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-                {isLoading && (
-                  <SidebarMenuItem>
-                    <div className="space-y-2">
-                      <Skeleton className="h-6 w-[220px]" />
-                      <Skeleton className="h-6 w-[200px]" />
-                      <Skeleton className="h-6 w-[190px]" />
-                      <Skeleton className="h-6 w-[170px]" />
-                    </div>
-                  </SidebarMenuItem>
-                )}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
-      </SidebarContent>
-      {/* Sidebar Footer */}
+  <DialogFooter className="mt-4 flex justify-end gap-3">
+    <DialogClose asChild>
+      <Button variant="outline">Close</Button>
+    </DialogClose>
+    <Button 
+      variant="default" 
+      onClick={() => {
+      }}
+    >
+      Learn More
+    </Button>
+  </DialogFooter>
+</DialogContent>
+
+                </Dialog>
+            </SidebarMenuItem>
+            </SidebarMenu>
+</SidebarGroup>
+</SidebarContent>
       <SidebarFooter>
         {/* User Auth Section */}
         {username ? (
