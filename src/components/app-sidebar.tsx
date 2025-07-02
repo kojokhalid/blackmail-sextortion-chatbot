@@ -20,7 +20,6 @@ import { NavUser } from "@/components/nav-user";
 import { Button } from "@/components/ui/button";
 import {
   File,
-  Lightbulb,
   MessageCircleMore,
   LifeBuoy,
   Info,
@@ -29,6 +28,8 @@ import {
   Users,
   Settings,
   BarChart3,
+  BookOpen,
+  Home,
 } from "lucide-react";
 import safeguardchatdark from "../assets/safeguardchatdark.png";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
@@ -142,8 +143,9 @@ export function AppSidebar({
 
   // Define menu items based on role
   const userMenu = [
-    { name: "Resource Hub", url: "/resourcehub", icon: Lightbulb },
-    { name: "Report", url: "https://docs.google.com/forms/d/e/1FAIpQLSfHfTta4NPqOrd2MW3BX4bn54C1XhwiPuwIQMQ-eisdujWpPA/viewform?usp=header", icon: File },
+    { name: "Home", url: "/", icon: Home },
+    { name: "Resources", url: "/resources", icon: BookOpen },
+    { name: "Report", url: "/report", icon: File },
     { name: "New Chat", url: "/chat", icon: MessageCircleMore },
   ];
 

@@ -125,3 +125,56 @@
     @apply border-border;
   }
 }
+
+.markdown-content {
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 0.5em 0;
+  }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.3em; }
+  h3 { font-size: 1.1em; }
+
+  /* Paragraphs */
+  p {
+    margin: 0.5em 0;
+  }
+
+  /* Lists */
+  ul, ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+  }
+
+  /* Code */
+  code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+
+  pre {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    border-radius: 4px;
+    overflow-x: auto;
+  }
+
+  /* Links */
+  a {
+    color: #3be424;
+    text-decoration: underline;
+  }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    margin: 0.5em 0;
+  }
+  th, td {
+    border: 1px solid #ccc;
+    padding: 0.5em;
+  }
+}

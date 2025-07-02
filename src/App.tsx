@@ -4,7 +4,8 @@ import MainLayout from "./layouts/MainLayout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import OTP from "./pages/OTP";
-import ResourceHub from "./pages/ResourceHub";
+import Home from "./pages/Home";
+import Resources from "./pages/Resources";
 // import PrivateRoute from "@/utils/PrivateRoute";
 import { AuthProvider } from "@/context/AuthContext";
 import Report from "./pages/Report";
@@ -15,16 +16,30 @@ import FeedbackPage from "./pages/FeedbackPage";
 import Admin from "./pages/Admin";
 import AdminLayout from "./layouts/AdminLayout";
 
+// Resource pages
+import DigitalLiteracyCourse from "./pages/resources/DigitalLiteracyCourse";
+import SupportPage from "./pages/SupportPage";
+
+// Tool pages
+import PrivacySettingsChecker from "./pages/tools/PrivacySettingsChecker";
+import ScamMessageAnalyzer from "./pages/tools/ScamMessageAnalyzer";
+
+// Community pages
+import SupportGroups from "./pages/community/SupportGroups";
+import WorkshopsEvents from "./pages/community/WorkshopsEvents";
+
 const router = createBrowserRouter([
   {
     path: "/",
-    index: true,
-    element: <MainLayout children={<ResourceHub />} />,
+    element: <MainLayout children={<Home />} />,
   },
   {
-    path: "/resourcehub",
-    index: true,
-    element: <MainLayout children={<ResourceHub />} />,
+    path: "/home",
+    element: <MainLayout children={<Home />} />,
+  },
+  {
+    path: "/resources",
+    element: <MainLayout children={<Resources />} />,
   },
   {
     path: "/chat",
@@ -38,7 +53,38 @@ const router = createBrowserRouter([
     path: "/report",
     element: <MainLayout children={<Report />} />,
   },
-
+  {
+    path: "/feedback",
+    element: <MainLayout children={<FeedbackPage />} />,
+  },
+  {
+    path: "/resources/course",
+    element: <MainLayout children={<DigitalLiteracyCourse />} />,
+  },
+  {
+    path: "/support",
+    element: <MainLayout children={<SupportPage />} />,
+  },
+  {
+    path: "/tools/privacy-checker",
+    element: <MainLayout children={<PrivacySettingsChecker />} />,
+  },
+  {
+    path: "/tools/scam-analyzer",
+    element: <MainLayout children={<ScamMessageAnalyzer />} />,
+  },
+  {
+    path: "/community/support-groups",
+    element: <MainLayout children={<SupportGroups />} />,
+  },
+  {
+    path: "/community/workshops-events",
+    element: <MainLayout children={<WorkshopsEvents />} />,
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout children={<Admin />} />,
+  },
   {
     path: "/login",
     element: <Login />,
@@ -55,8 +101,6 @@ const router = createBrowserRouter([
     path: "*",
     element: <NotFound />,
   },
-  { path: "/feedback", element: <MainLayout children={<FeedbackPage />} /> },
-  { path: "/admin", element: <AdminLayout children={<Admin />} /> },
 ]);
 
 function App() {
