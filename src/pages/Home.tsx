@@ -17,7 +17,11 @@ import { Shield, AlertTriangle, Phone, MessageCircle, Lock, Users, Eye, Heart, S
 import { useState } from "react";
 import { AnimatedListDemo } from "@/components/AnimatedList";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+// import safeguardLogoDark from "@/assets/safeguardchatdark.png";
+import safeguardLogoLight from "@/assets/safeguardchatlight.png";
 import bgvideo from "@/assets/hero-bg.mp4";
+import bgvideo2 from "@/assets/video2.mp4";
 const StatsSection = () => {
   const stats = [
     { icon: Shield, label: "People Protected", value: "10,000+", color: "text-green-500" },
@@ -73,20 +77,39 @@ const FeatureCard = ({ icon: Icon, title, description, color, delay }: any) => (
 );
 
 const HeroSection = () => {
+  const [currentVideo, setCurrentVideo] = useState(0);
+  const videos = [bgvideo, bgvideo2];
+
+  // Auto-transition between videos every 15 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentVideo((prev) => (prev + 1) % videos.length);
+    }, 15000); // 15 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      >
-        <source src={bgvideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Video Background with Transition */}
+      <div className="absolute inset-0 w-full h-full">
+        {videos.map((video, index) => (
+          <video
+            key={index}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-2000 ease-in-out ${
+              currentVideo === index ? 'opacity-100 z-[1]' : 'opacity-0 z-0'
+            }`}
+          >
+            <source src={video} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        ))}
+      </div>
       
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/70 to-accent/80 z-10"></div>
@@ -97,6 +120,24 @@ const HeroSection = () => {
       {/* Meteors animation */}
       <Meteors number={20} />
       
+      {/* Video Transition Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-40 flex space-x-3">
+        {videos.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentVideo(index)}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              currentVideo === index 
+                ? 'bg-accent scale-125 shadow-lg' 
+                : 'bg-primary-foreground/50 hover:bg-primary-foreground/80'
+            }`}
+            aria-label={`Switch to video ${index + 1}`}
+          />
+        ))}
+      </div>
+
+     
+
       {/* Content */}
       <div className="relative z-30 max-w-4xl mx-auto px-4 sm:px-8 text-center">
         <BlurFade delay={0.1}>
@@ -123,7 +164,7 @@ const HeroSection = () => {
         
         <BlurFade delay={0.4}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/chat">
+            <Link to="https://chat.cysafeguard.com" target="_self">
               <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-4 text-lg font-semibold rounded-full group">
                 <MessageCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
                 Get Immediate Help
@@ -142,6 +183,14 @@ const HeroSection = () => {
       </div>
       
       <BorderBeam size={250} duration={12} />
+
+      {/* CSS for progress animation */}
+      <style>{`
+        @keyframes progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+      `}</style>
     </section>
   );
 };
@@ -153,7 +202,7 @@ const QuickActions = () => {
       title: "Emergency Chat",
       description: "Get immediate support from our AI-powered chatbot",
       color: "bg-red-500",
-      href: "/chat",
+      href: "https://chat.cysafeguard.com",
       urgent: true
     },
     {
@@ -169,7 +218,7 @@ const QuickActions = () => {
       title: "Get Resources",
       description: "Access guides and educational materials",
       color: "bg-green-500",
-      href: "#resources",
+      href: "/resources",
       urgent: false
     },
     {
@@ -177,7 +226,7 @@ const QuickActions = () => {
       title: "Find Support",
       description: "Connect with support groups and counselors",
       color: "bg-purple-500",
-      href: "#support",
+      href: "/support",
       urgent: false
     }
   ];
@@ -198,6 +247,7 @@ const QuickActions = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {actions.map((action, index) => (
+            <Link to={action.href} key={index} className="no-underline">
             <BlurFade key={index} delay={0.2 + index * 0.1}>
               <Card className={`relative overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 ${
                 action.urgent ? 'ring-2 ring-red-500 ring-opacity-50' : ''
@@ -221,13 +271,14 @@ const QuickActions = () => {
                   </CardDescription>
                   <Button size="sm" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                     <ArrowRight className="w-4 h-4 mr-2" />
-                    {action.urgent ? 'Get Help Now' : 'Learn More'}
+                    {action.urgent ? 'Get Help Now' : action.title == "Report Incident"? "Report Now":'Learn More'}
                   </Button>
                 </CardContent>
                 <Meteors number={3} />
                 <BorderBeam size={40} duration={20} />
               </Card>
             </BlurFade>
+            </Link>
           ))}
         </div>
       </div>
@@ -625,7 +676,9 @@ const Home = () => {
                   <BorderBeam size={40} duration={15} />
                 </Card>
                 
-                <Card className="relative overflow-hidden border-0 bg-card/50 backdrop-blur-sm">
+              </div>
+            </BlurFade>
+            {/* <Card className="relative overflow-hidden border-0 bg-card/50 backdrop-blur-sm w-full">
                   <CardHeader>
                     <CardTitle className="flex items-center text-xl font-bold text-primary">
                       <Phone className="w-6 h-6 mr-2 text-green-500" />
@@ -656,9 +709,7 @@ const Home = () => {
                     </div>
                   </CardContent>
                   <BorderBeam size={40} duration={18} />
-                </Card>
-              </div>
-            </BlurFade>
+                </Card> */}
           </div>
         </div>
       </section>
@@ -676,7 +727,8 @@ const Home = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
               <div>
                 <h4 className="text-xl font-bold text-primary-foreground mb-6 font-syne flex items-center">
-                  <Shield className="w-6 h-6 mr-2" />
+                  {/* <Shield className="w-6 h-6 mr-2" /> */}
+                  <img src={safeguardLogoLight} className="size-16 mr-2"/>
                   Project SafeGuard
                 </h4>
                 <p className="text-primary-foreground/80 text-sm leading-relaxed">
@@ -690,7 +742,7 @@ const Home = () => {
                 </h4>
                 <ul className="space-y-3 text-sm">
                   {[
-                    { label: "Emergency Chat", href: "/chat", icon: MessageCircle },
+                    { label: "Emergency Chat", href: "https://chat.cysafeguard.com", icon: MessageCircle },
                     { label: "Report Incident", href: "/report", icon: AlertTriangle },
                     { label: "Resources", href: "#resources", icon: Info },
                     { label: "Support Groups", href: "#support", icon: Users },
@@ -714,10 +766,9 @@ const Home = () => {
                   External Resources
                 </h4>
                 <ul className="space-y-3 text-sm">
-                  {[
-                    { 
-                      label: "Ghana Police Cybercrime Unit", 
-                      href: "https://police.gov.gh/en/index.php/cybercrime-unit/",
+                  {[ { 
+                      label: "Ghana Cyber Security Authority", 
+                      href: "https://www.csa.gov.gh/",
                       icon: Shield
                     },
                     { 
@@ -747,14 +798,24 @@ const Home = () => {
                   Get Support Now
                 </h4>
                 <div className="space-y-3">
-                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" onClick={()=>window.open("https:/https://chat.cysafeguard.com.cysafeguard.com", "_blank")}>
                     <MessageCircle className="w-4 h-4 mr-2" />
                     Start Chat
                   </Button>
-                  <Button variant="outline" className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                    <Phone className="w-4 h-4 mr-2" />
-                    Call Emergency: 191
-                  </Button>
+                  
+                  
+                    <Button onClick={()=>window.open("/report","_self")} variant="destructive" className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+                      <AlertTriangle className="w-4 h-4 mr-2" />
+                      Report Incident
+                    </Button>
+              <Button
+                onClick={() => window.open("tel:191", "_self")}
+                variant="default"
+                className="w-full border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+              >
+                <Phone className="w-4 h-4 mr-2" />
+                Call Emergency: 191
+              </Button>
                 </div>
               </div>
             </div>
@@ -765,9 +826,10 @@ const Home = () => {
           <BlurFade delay={0.2}>
             <div className="text-center">
               <p className="text-primary-foreground/60 text-sm">
-                © {new Date().getFullYear()} Project SafeGuard, University of Mines and Technology, Ghana. 
+               Made with ♥️ by Antoh Shadrack. 
                 <br className="sm:hidden" />
-                <span className="hidden sm:inline"> | </span>
+                
+                <span className="hidden sm:inline"> | </span> © {new Date().getFullYear()} Project SafeGuard, 
                 All rights reserved. Protecting Ghana's digital future.
               </p>
             </div>
