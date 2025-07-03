@@ -15,7 +15,7 @@ const [isDarkMode, setIsDarkMode] = useState(false);
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     setIsDarkMode(mediaQuery.matches);
-    const listener = (e) => setIsDarkMode(e.matches);
+    const listener: (e: MediaQueryListEvent) => void = (e) => setIsDarkMode(e.matches);
     mediaQuery.addEventListener('change', listener);
     return () => mediaQuery.removeEventListener('change', listener);
   }, []);

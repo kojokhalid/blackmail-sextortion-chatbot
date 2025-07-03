@@ -8,7 +8,6 @@ import {
   Users, 
   MapPin, 
   Calendar, 
-  Clock, 
   Heart, 
   Shield, 
   Search,

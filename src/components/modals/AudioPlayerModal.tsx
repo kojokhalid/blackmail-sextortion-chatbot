@@ -241,13 +241,24 @@ const AudioPlayerModal = ({
 
           {/* Volume and additional controls */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Button variant="ghost" size="sm" onClick={toggleMute}>
                 {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
               </Button>
-              <span className="text-sm text-muted-foreground">
-                {isMuted ? 'Muted' : `${volume}%`}
-              </span>
+              <div className="flex items-center gap-2">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value={volume}
+                  onChange={(e) => setVolume(Number(e.target.value))}
+                  className="w-20 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+                  disabled={isMuted}
+                />
+                <span className="text-sm text-muted-foreground min-w-[3rem]">
+                  {isMuted ? 'Muted' : `${volume}%`}
+                </span>
+              </div>
             </div>
 
             <div className="flex items-center gap-2">

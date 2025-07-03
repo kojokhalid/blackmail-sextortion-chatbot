@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import Markdown from 'react-markdown'
 import Dialog from "./Alert-Dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Message = {
   sender: "user" | "bot";
