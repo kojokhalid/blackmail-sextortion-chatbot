@@ -1,14 +1,14 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
-import { Shield, Bell, User, Search } from "lucide-react";
+import { Shield, } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner"
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+// import { ModeToggle } from "@/components/mode-toggle";
 
 export const Footer = () => {
   return (
@@ -76,8 +76,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
                   <span className="sr-only">Notifications</span>
                 </Button> */}
 
+{/* Theme Toggle */}
+<div className="flex justify-center p-2">
+          {/* <ModeToggle /> */}
+        </div>
                 {/* Emergency Help Button */}
-                <Link to="/chat">
+                <Link to={"https://chat.cysafeguard.com"} target="_blank" rel="noopener noreferrer" >
                   <RainbowButton className="text-sm h-9 px-4 font-medium shadow-lg hover:shadow-xl transition-all duration-200">
                     <Shield className="w-4 h-4 mr-2" />
                     Get Help Now
@@ -100,6 +104,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
           
           {/* Main Content Area */}
           <div className="flex-1">{children}</div>
+          <Toaster position="top-center"/>
         </main>
         {/* <Footer /> */}
       </SidebarInset>

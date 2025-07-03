@@ -221,14 +221,14 @@ const QuickActions = () => {
       href: "/resources",
       urgent: false
     },
-    {
-      icon: Users,
-      title: "Find Support",
-      description: "Connect with support groups and counselors",
-      color: "bg-purple-500",
-      href: "/support",
-      urgent: false
-    }
+    // {
+    //   icon: Users,
+    //   title: "Find Support",
+    //   description: "Connect with support groups and counselors",
+    //   color: "bg-purple-500",
+    //   href: "/support",
+    //   urgent: false
+    // }
   ];
 
   return (
@@ -245,7 +245,7 @@ const QuickActions = () => {
           </div>
         </BlurFade>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center items-center">
           {actions.map((action, index) => (
             <Link to={action.href} key={index} className="no-underline">
             <BlurFade key={index} delay={0.2 + index * 0.1}>
@@ -428,7 +428,7 @@ const Faq = () => {
                     onClick={() => setActiveCategory(key)}
                     variant={activeCategory === key ? "default" : "outline"}
                     size="lg"
-                    className={`relative px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                    className={`relative dark:text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
                       activeCategory === key 
                         ? `bg-gradient-to-r ${data.color} text-white shadow-lg` 
                         : 'hover:shadow-md'
@@ -745,7 +745,7 @@ const Home = () => {
                     { label: "Emergency Chat", href: "https://chat.cysafeguard.com", icon: MessageCircle },
                     { label: "Report Incident", href: "/report", icon: AlertTriangle },
                     { label: "Resources", href: "#resources", icon: Info },
-                    { label: "Support Groups", href: "#support", icon: Users },
+                    // { label: "Support Groups", href: "#support", icon: Users },
                   ].map((link, index) => (
                     <li key={index}>
                       <a
@@ -798,7 +798,10 @@ const Home = () => {
                   Get Support Now
                 </h4>
                 <div className="space-y-3">
-                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground" onClick={()=>window.open("https:/https://chat.cysafeguard.com.cysafeguard.com", "_blank")}>
+                  <Button
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
+                    onClick={() => window.open("https://chat.cysafeguard.com", "_blank", "noopener,noreferrer")}
+                  >
                     <MessageCircle className="w-4 h-4 mr-2" />
                     Start Chat
                   </Button>

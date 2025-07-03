@@ -281,9 +281,9 @@ const SidebarTrigger = React.forwardRef<
       {isMobile ? (
         <Menu className="h-4 w-4" />
       ) : state === "expanded" ? (
-        <PanelLeftClose className="h-4 w-4 transition-transform duration-200" />
+        <PanelLeftClose className="h-4 w-4 transition-transform duration-200 dark:text-white"/>
       ) : (
-        <PanelLeftOpen className="h-4 w-4 transition-transform duration-200" />
+        <PanelLeftOpen className="h-4 w-4 transition-transform duration-200 dark:text-white"/>
       )}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>

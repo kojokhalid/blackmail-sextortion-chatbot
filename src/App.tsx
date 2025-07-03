@@ -27,7 +27,7 @@ import ScamMessageAnalyzer from "./pages/tools/ScamMessageAnalyzer";
 // Community pages
 import SupportGroups from "./pages/community/SupportGroups";
 import WorkshopsEvents from "./pages/community/WorkshopsEvents";
-
+import { ThemeProvider } from "@/components/theme-provider"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -105,10 +105,12 @@ const router = createBrowserRouter([
 
 function App() {
   return (
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
     <AuthProvider>
       <Toaster />
       <RouterProvider router={router} />
     </AuthProvider>
+    </ThemeProvider>
   );
 }
 

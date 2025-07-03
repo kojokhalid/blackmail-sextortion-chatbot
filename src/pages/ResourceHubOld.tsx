@@ -3,7 +3,7 @@ import Hero from "@/components/Hero";
 import { AnimatedListDemo } from "@/components/AnimatedList";
 import BlurFade from "@/components/ui/blur-fade";
 import { Timeline } from "antd";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabsold";
 import {
   Accordion,
   AccordionContent,

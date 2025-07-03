@@ -189,7 +189,7 @@ const Report = () => {
                   <Button onClick={() => setShowSuccess(false)} variant="outline">
                     Submit Another Report
                   </Button>
-                  <Button onClick={() => window.location.href = "/chat"}>
+                  <Button onClick={() => window.location.href = "https://chat.cysafeguard.com"} >
                     Get Support Chat
                   </Button>
                 </div>
@@ -243,7 +243,7 @@ const Report = () => {
             <AlertDescription className="text-red-600 dark:text-red-300">
               If you're in immediate danger, call Ghana Police Emergency: <strong>191</strong> or <strong>18555</strong>
               <br />
-              For urgent digital threats, use our <a href="/chat" className="underline font-semibold">emergency chat</a>
+              For urgent digital threats, use our <a href="https://chat.cysafeguard.com" target="_blank" rel="noopener noreferrer" className="underline font-semibold">emergency chat</a>
             </AlertDescription>
           </Alert>
         </BlurFade>
@@ -545,39 +545,40 @@ const Report = () => {
           <BlurFade delay={0.6}>
             <MagicCard className="p-6 text-center border-0 bg-card/30 backdrop-blur-sm">
               <Phone className="w-8 h-8 mx-auto mb-3 text-red-500" />
-              <h3 className="font-semibold mb-2">Emergency Help</h3>
+              <h3 className="font-semibold mb-2 text-card-foreground">Emergency Help</h3>
               <p className="text-sm text-muted-foreground mb-3">
                 If you're in immediate danger
               </p>
-              <Button size="sm" variant="outline" className="w-full">
+              <Button size="sm" variant="outline" className="w-full text-card-foreground" onClick={() => window.location.href = "tel:191"}>
                 Call 191 or 18555
               </Button>
             </MagicCard>
           </BlurFade>
           
-          <BlurFade delay={0.7}>
-            <MagicCard className="p-6 text-center border-0 bg-card/30 backdrop-blur-sm">
-              <Shield className="w-8 h-8 mx-auto mb-3 text-blue-500" />
-              <h3 className="font-semibold mb-2">Secure Reporting</h3>
-              <p className="text-sm text-muted-foreground mb-3">
-                Your information is encrypted and protected
-              </p>
-              <Button size="sm" variant="outline" className="w-full">
-                Learn More
-              </Button>
-            </MagicCard>
-          </BlurFade>
+        
           
           <BlurFade delay={0.8}>
             <MagicCard className="p-6 text-center border-0 bg-card/30 backdrop-blur-sm">
               <AlertTriangle className="w-8 h-8 mx-auto mb-3 text-green-500" />
-              <h3 className="font-semibold mb-2">Get Support</h3>
+              <h3 className="font-semibold mb-2 text-card-foreground">Get Support</h3>
               <p className="text-sm text-muted-foreground mb-3">
                 Talk to our trained counselors
               </p>
-              <Button size="sm" variant="outline" className="w-full">
+              <Button size="sm" variant="outline" className="w-full text-card-foreground">
                 Start Chat
               </Button>
+            </MagicCard>
+          </BlurFade>
+            <BlurFade delay={0.7}>
+            <MagicCard className="p-6 text-center border-0 bg-card/30 backdrop-blur-sm">
+              <Shield className="w-8 h-8 mx-auto mb-3 text-blue-500" />
+              <h3 className="font-semibold mb-2 text-card-foreground">Secure Reporting</h3>
+              <p className="text-sm text-muted-foreground mb-3">
+                Your information is encrypted and protected
+              </p>
+              {/* <Button size="sm" variant="outline" className="w-full text-card-foreground">
+                Learn More
+              </Button> */}
             </MagicCard>
           </BlurFade>
         </div>

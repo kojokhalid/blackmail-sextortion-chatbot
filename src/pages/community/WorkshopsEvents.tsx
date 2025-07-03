@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
 import { 
   Calendar, 
   Clock, 
@@ -14,39 +15,17 @@ import {
   Search,
   Filter,
   BookOpen,
-  Shield,
-  Smartphone,
   Zap,
   Heart,
   CheckCircle,
   ExternalLink,
-  Plus
+  Plus,
+  Loader2,
+  AlertTriangle
 } from "lucide-react";
 import BlurFade from "@/components/ui/blur-fade";
 import { BorderBeam } from "@/components/ui/border-beam";
-
-interface WorkshopEvent {
-  id: string;
-  title: string;
-  description: string;
-  type: 'workshop' | 'webinar' | 'training' | 'seminar' | 'conference';
-  format: 'in-person' | 'online' | 'hybrid';
-  date: string;
-  time: string;
-  duration: string;
-  location: string;
-  instructor: string;
-  instructorTitle: string;
-  capacity: number;
-  registered: number;
-  price: number;
-  level: 'beginner' | 'intermediate' | 'advanced' | 'all-levels';
-  topics: string[];
-  targetAudience: string[];
-  language: string[];
-  status: 'upcoming' | 'registration-open' | 'sold-out' | 'completed';
-  featured: boolean;
-}
+import { useWorkshopEvents } from "@/hooks/useResources";
 
 const WorkshopsEvents = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -54,140 +33,39 @@ const WorkshopsEvents = () => {
   const [selectedFormat, setSelectedFormat] = useState("all");
   const [selectedLevel, setSelectedLevel] = useState("all");
 
-  const events: WorkshopEvent[] = [
-    {
-      id: "1",
-      title: "Digital Self-Defense Workshop",
-      description: "Learn essential techniques to protect yourself from online harassment, scams, and digital abuse. Includes practical exercises and real-world scenarios.",
-      type: "workshop",
-      format: "hybrid",
-      date: "2024-02-15",
-      time: "14:00",
-      duration: "3 hours",
-      location: "Accra Digital Hub & Online",
-      instructor: "Dr. Akosua Frempong",
-      instructorTitle: "Cybersecurity Expert",
-      capacity: 50,
-      registered: 32,
-      price: 0,
-      level: "beginner",
-      topics: ["Privacy Settings", "Scam Recognition", "Incident Reporting", "Digital Footprint"],
-      targetAudience: ["General Public", "Students", "Young Adults"],
-      language: ["English", "Twi"],
-      status: "registration-open",
-      featured: true
-    },
-    {
-      id: "2",
-      title: "Mobile Money Security Masterclass",
-      description: "Comprehensive training on securing your mobile money accounts, recognizing fraud attempts, and safe transaction practices for Ghana's mobile money ecosystem.",
-      type: "training",
-      format: "in-person",
-      date: "2024-02-20",
-      time: "10:00",
-      duration: "4 hours",
-      location: "Kumasi Technology Center",
-      instructor: "Kwame Asante",
-      instructorTitle: "Financial Technology Specialist",
-      capacity: 30,
-      registered: 28,
-      price: 50,
-      level: "intermediate",
-      topics: ["Mobile Money Security", "Fraud Prevention", "Safe Transactions", "Account Recovery"],
-      targetAudience: ["Mobile Money Users", "Small Business Owners", "Market Vendors"],
-      language: ["English", "Twi"],
-      status: "registration-open",
-      featured: false
-    },
-    {
-      id: "3",
-      title: "Youth Digital Citizenship Conference",
-      description: "A full-day conference focusing on digital citizenship, online ethics, and safety for young people in Ghana. Features multiple speakers and interactive sessions.",
-      type: "conference",
-      format: "hybrid",
-      date: "2024-03-01",
-      time: "09:00",
-      duration: "8 hours",
-      location: "University of Ghana & Online",
-      instructor: "Multiple Speakers",
-      instructorTitle: "Digital Safety Experts",
-      capacity: 200,
-      registered: 150,
-      price: 0,
-      level: "all-levels",
-      topics: ["Digital Citizenship", "Online Ethics", "Cyberbullying Prevention", "Future Technology"],
-      targetAudience: ["Students", "Teachers", "Parents", "Youth Workers"],
-      language: ["English"],
-      status: "registration-open",
-      featured: true
-    },
-    {
-      id: "4",
-      title: "Advanced Incident Response Training",
-      description: "Professional-level training for IT professionals, law enforcement, and counselors on handling digital abuse cases and providing technical support to victims.",
-      type: "training",
-      format: "in-person",
-      date: "2024-03-10",
-      time: "09:00",
-      duration: "2 days",
-      location: "Ghana Police Headquarters",
-      instructor: "Inspector Sarah Osei",
-      instructorTitle: "Cybercrime Unit Lead",
-      capacity: 25,
-      registered: 20,
-      price: 200,
-      level: "advanced",
-      topics: ["Digital Evidence", "Victim Support", "Legal Procedures", "Technical Investigation"],
-      targetAudience: ["Law Enforcement", "IT Professionals", "Counselors", "Legal Aid Workers"],
-      language: ["English"],
-      status: "registration-open",
-      featured: false
-    },
-    {
-      id: "5",
-      title: "Parents' Guide to Internet Safety",
-      description: "Essential workshop for parents and guardians to understand online risks and learn how to protect their children in the digital age.",
-      type: "workshop",
-      format: "online",
-      date: "2024-02-25",
-      time: "19:00",
-      duration: "2 hours",
-      location: "Online (Zoom)",
-      instructor: "Fatima Abdul-Rahman",
-      instructorTitle: "Child Protection Specialist",
-      capacity: 100,
-      registered: 45,
-      price: 0,
-      level: "beginner",
-      topics: ["Parental Controls", "Age-Appropriate Content", "Online Predators", "Digital Communication"],
-      targetAudience: ["Parents", "Guardians", "Teachers", "Childcare Workers"],
-      language: ["English", "Dagbani"],
-      status: "registration-open",
-      featured: true
-    },
-    {
-      id: "6",
-      title: "Small Business Digital Security",
-      description: "Tailored workshop for small business owners to protect their enterprises from cyber threats, secure customer data, and maintain business continuity.",
-      type: "seminar",
-      format: "hybrid",
-      date: "2024-03-15",
-      time: "15:00",
-      duration: "3 hours",
-      location: "Takoradi Business Center & Online",
-      instructor: "Emmanuel Koomson",
-      instructorTitle: "Business Technology Consultant",
-      capacity: 40,
-      registered: 25,
-      price: 75,
-      level: "intermediate",
-      topics: ["Business Security", "Customer Data Protection", "Secure Payment Systems", "Backup Strategies"],
-      targetAudience: ["Small Business Owners", "Entrepreneurs", "Shop Managers"],
-      language: ["English", "Fante"],
-      status: "registration-open",
-      featured: false
-    }
-  ];
+  // Fetch events from Contentful
+  const { events, loading, error, refetch } = useWorkshopEvents();
+  // Handle loading and error states
+  if (loading) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <Loader2 className="w-8 h-8 animate-spin mx-auto mb-4 text-primary" />
+            <p className="text-muted-foreground">Loading workshop events...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="text-center">
+            <AlertTriangle className="w-8 h-8 mx-auto mb-4 text-destructive" />
+            <h3 className="text-lg font-semibold mb-2">Unable to Load Events</h3>
+            <p className="text-muted-foreground mb-4">{error}</p>
+            <Button onClick={refetch} variant="outline">
+              <Calendar className="w-4 h-4 mr-2" />
+              Try Again
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const filteredEvents = events.filter(event => {
     const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -268,6 +146,22 @@ const WorkshopsEvents = () => {
       minute: '2-digit',
       hour12: false
     });
+  };
+
+  // Helper function to show toast notifications
+  const showAlert = (message: string, type: 'info' | 'warning' | 'success' = 'info') => {
+    switch (type) {
+      case 'warning':
+        toast.warning(message);
+        break;
+      case 'success':
+        toast.success(message);
+        break;
+      case 'info':
+      default:
+        toast.info(message);
+        break;
+    }
   };
 
   return (
@@ -523,11 +417,34 @@ const WorkshopsEvents = () => {
 
                         {event.status === 'registration-open' && (
                           <div className="space-y-2">
-                            <Button size="lg" className="w-full">
+                            <Button 
+                              size="lg" 
+                              className="w-full"
+                              onClick={() => {
+                                if (event.registrationUrl) {
+                                  window.open(event.registrationUrl, '_blank');
+                                } else {
+                                  // Fallback - could open a contact modal or form
+                                  showAlert('Registration will be available soon. Please check back later.', 'info');
+                                }
+                              }}
+                            >
                               <Plus className="w-4 h-4 mr-2" />
                               Register Now
                             </Button>
-                            <Button size="lg" variant="outline" className="w-full">
+                            <Button 
+                              size="lg" 
+                              variant="outline" 
+                              className="w-full"
+                              onClick={() => {
+                                if (event.moreInfoUrl) {
+                                  window.open(event.moreInfoUrl, '_blank');
+                                } else {
+                                  // Fallback - could show event details modal
+                                  showAlert('More details will be available soon.', 'info');
+                                }
+                              }}
+                            >
                               <ExternalLink className="w-4 h-4 mr-2" />
                               More Details
                             </Button>

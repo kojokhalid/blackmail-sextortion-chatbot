@@ -154,7 +154,7 @@ const DigitalLiteracyCourse = () => {
     setCourseProgress(prev => ({
       ...prev,
       completedModules: prev.completedModules + 1,
-      completedLessons: prev.completedLessons + modules.find(m => m.id === moduleId)?.lessons || 0
+      completedLessons: prev.completedLessons + (modules.find(m => m.id === moduleId)?.lessons ?? 0)
     }));
   };
 

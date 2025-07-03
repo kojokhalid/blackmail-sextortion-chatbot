@@ -30,6 +30,7 @@ import {
   BarChart3,
   BookOpen,
   Home,
+  ExternalLink,
 } from "lucide-react";
 import safeguardchatdark from "../assets/safeguardchatdark.png";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
@@ -63,6 +64,13 @@ import { Skeleton } from "./ui/skeleton";
 interface ChatData {
   sessionId: string;
   sessionTitle: string;
+}
+
+interface MenuItem {
+  name: string;
+  url: string;
+  icon: React.ComponentType<any>;
+  isExternal?: boolean;
 }
 
 // const formSchema = z.object({
@@ -142,14 +150,14 @@ export function AppSidebar({
   const isActivePath = (path: string) => location.pathname === path;
 
   // Define menu items based on role
-  const userMenu = [
+  const userMenu: MenuItem[] = [
     { name: "Home", url: "/", icon: Home },
     { name: "Resources", url: "/resources", icon: BookOpen },
     { name: "Report", url: "/report", icon: File },
-    { name: "New Chat", url: "/chat", icon: MessageCircleMore },
+    { name: "AI Chat", url: "https://chat.cysafeguard.com", icon: MessageCircleMore, isExternal: true },
   ];
 
-  const adminMenu = [
+  const adminMenu: MenuItem[] = [
     { name: "Dashboard", url: "/admin", icon: BarChart3 },
     { name: "User Management", url: "/admin/users", icon: Users },
     { name: "Settings", url: "/admin/settings", icon: Settings },
@@ -166,7 +174,7 @@ export function AppSidebar({
                   <img src={safeguardchatdark}/>
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Safeguard Chatbot</span>
+                  <span className="truncate font-semibold">CY SafeGuard</span>
                   <span className="truncate text-xs">
                   Awareness and support for a safer digital world.
                   </span>
@@ -183,10 +191,18 @@ export function AppSidebar({
             {(role === "admin" ? adminMenu : userMenu).map((item, index) => (
               <SidebarMenuItem key={index}>
                 <SidebarMenuButton asChild isActive={isActivePath(item.url)}>
-                  <Link to={item.url}>
-                    <item.icon />
-                    <span className="text-sm">{item.name}</span>
-                  </Link>
+                  {item.isExternal ? (
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">
+                      <item.icon />
+                      <span className="text-sm">{item.name}</span>
+                      <ExternalLink className="ml-auto h-4 w-4" />
+                    </a>
+                  ) : (
+                    <Link to={item.url}>
+                      <item.icon />
+                      <span className="text-sm">{item.name}</span>
+                    </Link>
+                  )}
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
@@ -314,29 +330,26 @@ export function AppSidebar({
               avatar: "/avatars/user.jpg",
             }}
           />
+
         ) : (
           <>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton size="default" asChild>
-                  <Button variant="outline" asChild>
-                    <Link to="/login">
-                      <LogIn />
-                      <span className="truncate">Login</span>
-                    </Link>
-                  </Button>
+                  <Link to="/login" className="rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground">
+                    <LogIn className="h-4 w-4" />
+                    <span className="truncate">Login</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton size="default" asChild>
-                  <Button variant="default" asChild>
-                    <Link to="/signup">
-                      <UserPlus />
-                      <span className="truncate">Sign Up</span>
-                    </Link>
-                  </Button>
+                  <Link to="/signup" className="rounded-md bg-primary text-primary-foreground hover:bg-primary/90">
+                    <UserPlus className="h-4 w-4" />
+                    <span className="truncate">Sign Up</span>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>

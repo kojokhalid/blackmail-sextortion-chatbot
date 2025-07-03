@@ -208,7 +208,7 @@ const VideoPlayerModal = ({
           {/* Video Info */}
           <div className="p-6">
             <DialogHeader className="mb-4">
-              <DialogTitle className="text-xl font-bold text-left">
+              <DialogTitle className="text-xl font-bold text-left bg-card text-card-foreground">
                 {videoTitle}
               </DialogTitle>
             </DialogHeader>
@@ -232,11 +232,11 @@ const VideoPlayerModal = ({
 
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-3">
-              <Button variant="outline" className="flex items-center gap-2">
+              <Button variant="outline" className="flex items-center gap-2 bg-card text-card-foreground">
                 <Download className="w-4 h-4" />
                 Download Video
               </Button>
-              <Button variant="outline" className="flex items-center gap-2" onClick={handleShare}>
+              <Button variant="outline" className="flex items-center gap-2 bg-card text-card-foreground" onClick={handleShare}>
                 <Share className="w-4 h-4" />
                 Share
               </Button>

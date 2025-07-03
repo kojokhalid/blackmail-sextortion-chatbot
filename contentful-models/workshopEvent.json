@@ -1,0 +1,377 @@
+{
+  "name": "Workshop Event",
+  "description": "Educational workshops, training sessions, and events for digital safety",
+  "displayField": "title",
+  "fields": [
+    {
+      "id": "100",
+      "name": "Title",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": {
+            "min": 10,
+            "max": 100
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "description",
+      "name": "Description",
+      "type": "Text",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "size": {
+            "min": 50,
+            "max": 500
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "eventType",
+      "name": "Event Type",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "in": [
+            "workshop",
+            "webinar",
+            "training",
+            "seminar",
+            "conference"
+          ]
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "format",
+      "name": "Format",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "in": [
+            "in-person",
+            "online",
+            "hybrid"
+          ]
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "eventDate",
+      "name": "Event Date",
+      "type": "Date",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "startTime",
+      "name": "Start Time",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "duration",
+      "name": "Duration",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "location",
+      "name": "Location",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "instructor",
+      "name": "Instructor",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "instructorTitle",
+      "name": "Instructor Title",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "capacity",
+      "name": "Capacity",
+      "type": "Integer",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "range": {
+            "min": 1,
+            "max": 1000
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "registeredCount",
+      "name": "Registered Count",
+      "type": "Integer",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "range": {
+            "min": 0
+          }
+        }
+      ],
+      "defaultValue": {
+        "en-US": 0
+      },
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "price",
+      "name": "Price (GHS)",
+      "type": "Number",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "range": {
+            "min": 0
+          }
+        }
+      ],
+      "defaultValue": {
+        "en-US": 0
+      },
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "difficultyLevel",
+      "name": "Difficulty Level",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "in": [
+            "beginner",
+            "intermediate",
+            "advanced",
+            "all-levels"
+          ]
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "topics",
+      "name": "Topics",
+      "type": "Array",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "items": {
+        "type": "Symbol",
+        "validations": []
+      }
+    },
+    {
+      "id": "targetAudience",
+      "name": "Target Audience",
+      "type": "Array",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "items": {
+        "type": "Symbol",
+        "validations": []
+      }
+    },
+    {
+      "id": "languages",
+      "name": "Languages",
+      "type": "Array",
+      "localized": false,
+      "required": true,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "items": {
+        "type": "Symbol",
+        "validations": []
+      }
+    },
+    {
+      "id": "status",
+      "name": "Status",
+      "type": "Symbol",
+      "localized": false,
+      "required": true,
+      "validations": [
+        {
+          "in": [
+            "upcoming",
+            "registration-open",
+            "sold-out",
+            "completed",
+            "cancelled"
+          ]
+        }
+      ],
+      "defaultValue": {
+        "en-US": "upcoming"
+      },
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "featured",
+      "name": "Featured",
+      "type": "Boolean",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "defaultValue": {
+        "en-US": false
+      },
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "registrationUrl",
+      "name": "Registration URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^https?://.+"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "moreInfoUrl",
+      "name": "More Info URL",
+      "type": "Symbol",
+      "localized": false,
+      "required": false,
+      "validations": [
+        {
+          "regexp": {
+            "pattern": "^https?://.+"
+          }
+        }
+      ],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "eventImage",
+      "name": "Event Image",
+      "type": "Link",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "linkType": "Asset"
+    },
+    {
+      "id": "prerequisites",
+      "name": "Prerequisites",
+      "type": "Text",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false
+    },
+    {
+      "id": "materials",
+      "name": "Materials Provided",
+      "type": "Array",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "disabled": false,
+      "omitted": false,
+      "items": {
+        "type": "Symbol",
+        "validations": []
+      }
+    },
+    {
+      "id": "displayOrder",
+      "name": "Display Order",
+      "type": "Integer",
+      "localized": false,
+      "required": false,
+      "validations": [],
+      "defaultValue": {
+        "en-US": 1
+      },
+      "disabled": false,
+      "omitted": false
+    }
+  ]
+}
