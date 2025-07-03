@@ -1,6 +1,6 @@
 import { createClient } from 'contentful';
-const space = import.meta.env.VITE_CONTENTFUL_SPACE_ID;
-const accssToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN
+const space = import.meta.env.VITE_CONTENTFUL_SPACE_ID as string;
+const accssToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN as string;
 const client = createClient({
   space: space,
   accessToken: accssToken,
