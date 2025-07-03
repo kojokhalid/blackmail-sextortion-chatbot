@@ -1,9 +1,8 @@
 import { createClient } from 'contentful';
-const space = import.meta.env.VITE_CONTENTFUL_SPACE_ID as string;
-const accssToken = import.meta.env.VITE_CONTENTFUL_ACCESS_TOKEN as string;
+
 const client = createClient({
-  space: space,
-  accessToken: accssToken,
+  space: "hwnypz7kg1s3",
+  accessToken: "YSOYFk8SEtSgG_N3gPazLKiJKb00kF1G5xxK37ORXJk",
 });
 
 export const getResources = async (category?: string) => {
